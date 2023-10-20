@@ -1,0 +1,13 @@
+{
+  "type": "test_mod:test_recipe_serializer",
+  "category": "test_mod:test_category5",
+  "ingredients": [
+    {
+      "item": "minecraft:iron_ingot"
+    },
+    {
+      "item": "minecraft:dirt"
+    }
+  ],
+  "result": "minecraft:iron_block"
+}

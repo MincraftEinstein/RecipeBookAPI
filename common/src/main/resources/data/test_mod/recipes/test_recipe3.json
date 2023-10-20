@@ -1,0 +1,13 @@
+{
+  "type": "test_mod:test_recipe_serializer",
+  "category": "test_mod:test_category3",
+  "ingredients": [
+    {
+      "item": "minecraft:redstone"
+    },
+    {
+      "item": "minecraft:dirt"
+    }
+  ],
+  "result": "minecraft:redstone_block"
+}
