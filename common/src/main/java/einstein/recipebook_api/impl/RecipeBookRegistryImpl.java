@@ -21,7 +21,9 @@ public class RecipeBookRegistryImpl implements RecipeBookRegistry {
     @Override
     public RecipeBookTypeHolder registerType(ResourceLocation id, RecipeBookCategoryGroup group) {
         RecipeBookTypeHolder holder = new RecipeBookTypeHolder(id, group);
-        TYPE_REGISTRY.put(id, holder);
+        if (TYPE_REGISTRY.put(id, holder) != null) {
+            throw new IllegalArgumentException("Duplicate registration: " + id);
+        }
         return holder;
     }
 
@@ -31,7 +33,9 @@ public class RecipeBookRegistryImpl implements RecipeBookRegistry {
             throw new IllegalArgumentException("Too many icons for category: " + id + " - the max is 2");
         }
         RecipeBookCategoryHolder holder = new RecipeBookCategoryHolder(id, iconStacks);
-        CATEGORY_REGISTRY.put(id, holder);
+        if (CATEGORY_REGISTRY.put(id, holder) != null) {
+            throw new IllegalArgumentException("Duplicate registration: " + id);
+        }
         return holder;
     }
 
