@@ -33,15 +33,15 @@ public class RecipeBookSettingsMixin {
     @Inject(method = "<clinit>", at = @At("RETURN"))
     private static void clInit(CallbackInfo ci) {
         Map<RecipeBookType, Pair<String, String>> tagFields = new HashMap<>(getTagFields());
-        for (RecipeBookTypeHolder holder : RecipeBookRegistryImpl.TYPE_REGISTRY) {
+        RecipeBookRegistryImpl.TYPE_REGISTRY.forEach((id, holder) -> {
             RecipeBookType type = holder.getType();
             if (type != null) {
-                tagFields.put(holder.getType(), RecipeBookAPI.getRecipeBookTags(holder.getId()));
+                tagFields.put(holder.getType(), RecipeBookAPI.getRecipeBookTags(id));
             }
             else {
-                RecipeBookAPI.LOGGER.error("Cannot add Recipe Book tags for null type: {}", holder.getId());
+                RecipeBookAPI.LOGGER.error("Cannot add Recipe Book tags for null type: {}", id);
             }
-        }
+        });
         setTagFields(tagFields);
     }
 }

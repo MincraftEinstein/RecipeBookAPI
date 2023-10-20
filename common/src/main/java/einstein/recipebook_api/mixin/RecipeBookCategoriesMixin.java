@@ -70,7 +70,7 @@ public class RecipeBookCategoriesMixin {
 
     @Inject(method = "getCategories", at = @At("HEAD"), cancellable = true)
     private static void getCategories(RecipeBookType type, CallbackInfoReturnable<List<RecipeBookCategories>> cir) {
-        for (RecipeBookTypeHolder holder : RecipeBookRegistryImpl.TYPE_REGISTRY) {
+        for (RecipeBookTypeHolder holder : RecipeBookRegistryImpl.TYPE_REGISTRY.values()) {
             if (type.equals(holder.getType())) {
                 cir.setReturnValue(holder.getGroup().getAllCategories());
             }

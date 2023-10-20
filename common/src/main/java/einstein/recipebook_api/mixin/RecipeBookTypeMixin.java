@@ -24,9 +24,8 @@ public class RecipeBookTypeMixin {
 
     @Inject(method = "<clinit>", at = @At("RETURN"))
     private static void clInit(CallbackInfo ci) {
-        for (RecipeBookTypeHolder holder : RecipeBookRegistryImpl.TYPE_REGISTRY) {
-            holder.setType(justMoreCakes$register(holder.getId()));
-        }
+        RecipeBookRegistryImpl.TYPE_REGISTRY.forEach((id, holder) ->
+                holder.setType(justMoreCakes$register(id)));
     }
 
     @Invoker("<init>")

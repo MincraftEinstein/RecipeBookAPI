@@ -14,14 +14,14 @@ import java.util.Map;
 
 public class RecipeBookRegistryImpl implements RecipeBookRegistry {
 
-    public static final List<RecipeBookTypeHolder> TYPE_REGISTRY = new ArrayList<>();
+    public static final Map<ResourceLocation, RecipeBookTypeHolder> TYPE_REGISTRY = new HashMap<>();
     public static final Map<ResourceLocation, RecipeBookCategoryHolder> CATEGORY_REGISTRY = new HashMap<>();
     public static final List<RecipeBookCategoryGroup> CATEGORY_GROUP_REGISTRY = new ArrayList<>();
 
     @Override
     public RecipeBookTypeHolder registerType(ResourceLocation id, RecipeBookCategoryGroup group) {
         RecipeBookTypeHolder holder = new RecipeBookTypeHolder(id, group);
-        TYPE_REGISTRY.add(holder);
+        TYPE_REGISTRY.put(id, holder);
         return holder;
     }
 
