@@ -30,4 +30,9 @@ public class RecipeBookCategoryHolder {
     public void setCategory(RecipeBookCategories category) {
         this.category = category;
     }
+
+    @Override
+    public String toString() {
+        return id.toString();
+    }
 }

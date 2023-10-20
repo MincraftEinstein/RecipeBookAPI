@@ -4,17 +4,18 @@ import einstein.recipebook_api.api.RecipeBookCategoryGroup;
 import einstein.recipebook_api.api.RecipeBookCategoryHolder;
 import einstein.recipebook_api.api.RecipeBookRegistry;
 import einstein.recipebook_api.api.RecipeBookTypeHolder;
-import net.minecraft.client.RecipeBookCategories;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class RecipeBookRegistryImpl implements RecipeBookRegistry {
 
     public static final List<RecipeBookTypeHolder> TYPE_REGISTRY = new ArrayList<>();
-    public static final List<RecipeBookCategoryHolder> CATEGORY_REGISTRY = new ArrayList<>();
+    public static final Map<ResourceLocation, RecipeBookCategoryHolder> CATEGORY_REGISTRY = new HashMap<>();
     public static final List<RecipeBookCategoryGroup> CATEGORY_GROUP_REGISTRY = new ArrayList<>();
 
     @Override
@@ -27,7 +28,7 @@ public class RecipeBookRegistryImpl implements RecipeBookRegistry {
     @Override
     public RecipeBookCategoryHolder registerCategory(ResourceLocation id, ItemStack... iconStacks) {
         RecipeBookCategoryHolder holder = new RecipeBookCategoryHolder(id, iconStacks);
-        CATEGORY_REGISTRY.add(holder);
+        CATEGORY_REGISTRY.put(id, holder);
         return holder;
     }
 

@@ -42,10 +42,10 @@ public class RecipeBookCategoriesMixin {
     private static void clInit(CallbackInfo ci) {
         Map<RecipeBookCategories, List<RecipeBookCategories>> aggregateCategories = new HashMap<>(getAggregateCategories());
 
-        for (RecipeBookCategoryHolder holder : RecipeBookRegistryImpl.CATEGORY_REGISTRY) {
-            RecipeBookCategories category = justMoreCakes$register(holder.getId(), holder.getIconStacks());
+        RecipeBookRegistryImpl.CATEGORY_REGISTRY.forEach((id, holder) -> {
+            RecipeBookCategories category = justMoreCakes$register(id, holder.getIconStacks());
             holder.setCategory(category);
-        }
+        });
 
         for (RecipeBookCategoryGroup group : RecipeBookRegistryImpl.CATEGORY_GROUP_REGISTRY) {
             aggregateCategories.put(group.mainCategory().getCategory(), group.categories().stream().map(RecipeBookCategoryHolder::getCategory).toList());

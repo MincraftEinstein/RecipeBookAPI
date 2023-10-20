@@ -1,13 +1,13 @@
 {
   "type": "test_mod:test_recipe_serializer",
-  "category": "test_mod:test_category",
+  "category": "test_mod:test_category2",
   "ingredients": [
     {
-      "item": "minecraft:diamond"
+      "item": "minecraft:emerald"
     },
     {
       "item": "minecraft:dirt"
     }
   ],
-  "result": "minecraft:diamond_block"
+  "result": "minecraft:emerald_block"
 }

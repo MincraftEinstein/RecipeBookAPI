@@ -17,10 +17,12 @@ public class TestRecipe implements Recipe<Container>, CategorizedRecipe {
 
     protected final NonNullList<Ingredient> ingredients;
     protected final ItemStack result;
+    protected final RecipeBookCategoryHolder categoryHolder;
 
-    public TestRecipe(NonNullList<Ingredient> ingredients, ItemStack result) {
+    public TestRecipe(NonNullList<Ingredient> ingredients, ItemStack result, RecipeBookCategoryHolder categoryHolder) {
         this.ingredients = ingredients;
         this.result = result;
+        this.categoryHolder = categoryHolder;
     }
 
     @Override
@@ -60,6 +62,6 @@ public class TestRecipe implements Recipe<Container>, CategorizedRecipe {
 
     @Override
     public RecipeBookCategoryHolder getRecipeBookCategory() {
-        return TestMod.TEST_CATEGORY;
+        return categoryHolder;
     }
 }

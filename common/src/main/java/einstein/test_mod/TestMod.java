@@ -39,7 +39,8 @@ public class TestMod {
     public static final Supplier<MenuType<TestMenu>> TEST_MENU = REGISTRY.register("test_menu", BuiltInRegistries.MENU, () -> REGISTRY.createMenuType((id, inventory, buf) -> new TestMenu(id, inventory)));
     public static final RecipeBookCategoryHolder TEST_SEARCH_CATEGORY = RecipeBookRegistry.INSTANCE.registerCategory(loc("test_search_category"), new ItemStack(Items.COMPASS));
     public static final RecipeBookCategoryHolder TEST_CATEGORY = RecipeBookRegistry.INSTANCE.registerCategory(loc("test_category"), new ItemStack(Blocks.COMMAND_BLOCK));
-    public static final RecipeBookCategoryGroup TEST_GROUP = RecipeBookRegistry.INSTANCE.registerCategoryGroup(TEST_SEARCH_CATEGORY, TEST_CATEGORY);
+    public static final RecipeBookCategoryHolder TEST_CATEGORY2 = RecipeBookRegistry.INSTANCE.registerCategory(loc("test_category2"), new ItemStack(Blocks.CHAIN_COMMAND_BLOCK));
+    public static final RecipeBookCategoryGroup TEST_GROUP = RecipeBookRegistry.INSTANCE.registerCategoryGroup(TEST_SEARCH_CATEGORY, TEST_CATEGORY, TEST_CATEGORY2);
     public static final RecipeBookTypeHolder TEST_TYPE = RecipeBookRegistry.INSTANCE.registerType(loc("test_type"), TEST_GROUP);
     public static final KeyMapping OPEN_TEST_MENU = REGISTRY.registerKeyMapping(() -> new KeyMapping("open_test_menu", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_C, KeyMapping.CATEGORY_INVENTORY));
 
