@@ -1,0 +1,12 @@
+{
+  "type": "test_mod:test_recipe_serializer",
+  "ingredients": [
+    {
+      "item": "minecraft:diamond"
+    },
+    {
+      "item": "minecraft:dirt"
+    }
+  ],
+  "result": "minecraft:diamond_block"
+}

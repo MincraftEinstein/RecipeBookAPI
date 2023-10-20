@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "id": "recipebook_api",
+  "version": "${version}",
+  "name": "RecipeBook API",
+  "description": "Provides a simple to use API to create recipe book support for custom processing/crafting menus",
+  "authors": [
+    "MincraftEinstein"
+  ],
+  "contact": {
+    "homepage": "https://curseforge.com/minecraft/mc-mods/recipebook-api",
+    "sources": "https://github.com/MincraftEinstein/RecipeBookAPI",
+    "issues": "https://github.com/MincraftEinstein/RecipeBookAPI/issues"
+  },
+  "license": "All rights reserved",
+  "icon": "pack.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "einstein.recipebook_api.RecipeBookAPIFabric",
+      "einstein.test_mod.TestModFabric"
+    ],
+    "client": [
+      "einstein.test_mod.TestModFabric"
+    ]
+  },
+  "mixins": [
+    "recipebook_api.mixins.json",
+    "recipebook_api.fabric.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14",
+    "fabric": ">=0.89.0",
+    "minecraft": "1.20.x",
+    "java": ">=17"
+  },
+  "suggests": {
+    "another-mod": "*"
+  },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.discord": "https://discord.gg/gSsaFAvrBM"
+      },
+      "badges": [
+        "library"
+      ]
+    }
+  }
+}
