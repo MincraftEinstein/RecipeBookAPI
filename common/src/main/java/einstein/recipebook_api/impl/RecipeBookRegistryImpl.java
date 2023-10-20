@@ -27,6 +27,9 @@ public class RecipeBookRegistryImpl implements RecipeBookRegistry {
 
     @Override
     public RecipeBookCategoryHolder registerCategory(ResourceLocation id, ItemStack... iconStacks) {
+        if (iconStacks.length > 2) {
+            throw new IllegalArgumentException("Too many icons for category: " + id + " - the max is 2");
+        }
         RecipeBookCategoryHolder holder = new RecipeBookCategoryHolder(id, iconStacks);
         CATEGORY_REGISTRY.put(id, holder);
         return holder;
@@ -34,6 +37,9 @@ public class RecipeBookRegistryImpl implements RecipeBookRegistry {
 
     @Override
     public RecipeBookCategoryGroup registerCategoryGroup(RecipeBookCategoryHolder mainCategory, RecipeBookCategoryHolder... categories) {
+        if (categories.length > 5) {
+            throw new IllegalArgumentException("Too many categories for group the max is 5");
+        }
         RecipeBookCategoryGroup group = new RecipeBookCategoryGroup(mainCategory, List.of(categories));
         CATEGORY_GROUP_REGISTRY.add(group);
         return group;
