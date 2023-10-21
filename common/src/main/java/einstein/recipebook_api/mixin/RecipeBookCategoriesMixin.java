@@ -1,7 +1,6 @@
 package einstein.recipebook_api.mixin;
 
 import einstein.recipebook_api.RecipeBookAPI;
-import einstein.recipebook_api.api.RecipeBookCategoryGroup;
 import einstein.recipebook_api.api.RecipeBookCategoryHolder;
 import einstein.recipebook_api.impl.RecipeBookRegistryImpl;
 import einstein.recipebook_api.api.RecipeBookTypeHolder;
@@ -43,7 +42,7 @@ public class RecipeBookCategoriesMixin {
         Map<RecipeBookCategories, List<RecipeBookCategories>> aggregateCategories = new HashMap<>(getAggregateCategories());
 
         RecipeBookRegistryImpl.CATEGORY_REGISTRY.forEach((id, holder) -> {
-            RecipeBookCategories category = justMoreCakes$register(id, holder.getIconStacks());
+            RecipeBookCategories category = recipeBookAPI$register(id, holder.getIconStacks());
             holder.setCategory(category);
         });
 
@@ -60,7 +59,7 @@ public class RecipeBookCategoriesMixin {
     }
 
     @Unique
-    private static RecipeBookCategories justMoreCakes$register(ResourceLocation id, ItemStack... stacks) {
+    private static RecipeBookCategories recipeBookAPI$register(ResourceLocation id, ItemStack... stacks) {
         ArrayList<RecipeBookCategories> values = new ArrayList<>(Arrays.asList($VALUES));
         RecipeBookCategories category = invokeInit(RecipeBookAPI.enumName(id), values.get(values.size() - 1).ordinal() + 1, stacks);
         values.add(category);

@@ -2,7 +2,6 @@ package einstein.recipebook_api.mixin;
 
 import einstein.recipebook_api.RecipeBookAPI;
 import einstein.recipebook_api.impl.RecipeBookRegistryImpl;
-import einstein.recipebook_api.api.RecipeBookTypeHolder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.RecipeBookType;
 import org.spongepowered.asm.mixin.*;
@@ -25,7 +24,7 @@ public class RecipeBookTypeMixin {
     @Inject(method = "<clinit>", at = @At("RETURN"))
     private static void clInit(CallbackInfo ci) {
         RecipeBookRegistryImpl.TYPE_REGISTRY.forEach((id, holder) ->
-                holder.setType(justMoreCakes$register(id)));
+                holder.setType(recipeBookAPI$register(id)));
     }
 
     @Invoker("<init>")
@@ -34,7 +33,7 @@ public class RecipeBookTypeMixin {
     }
 
     @Unique
-    private static RecipeBookType justMoreCakes$register(ResourceLocation id) {
+    private static RecipeBookType recipeBookAPI$register(ResourceLocation id) {
         ArrayList<RecipeBookType> values = new ArrayList<>(Arrays.asList($VALUES));
         RecipeBookType type = invokeInit(RecipeBookAPI.enumName(id), values.get(values.size() - 1).ordinal() + 1);
         values.add(type);
