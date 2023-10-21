@@ -7,6 +7,7 @@ import net.minecraft.world.item.ItemStack;
 public class RecipeBookCategoryHolder {
 
     private RecipeBookCategories category;
+    private RecipeBookTypeHolder type;
     private final ResourceLocation id;
     private final ItemStack[] iconStacks;
 
@@ -21,6 +22,14 @@ public class RecipeBookCategoryHolder {
 
     public ItemStack[] getIconStacks() {
         return iconStacks;
+    }
+
+    public RecipeBookTypeHolder getType() {
+        return type;
+    }
+
+    public void setType(RecipeBookTypeHolder type) {
+        this.type = type;
     }
 
     public RecipeBookCategories getCategory() {

@@ -20,11 +20,15 @@ public class RecipeBookRegistryImpl implements RecipeBookRegistry {
 
     @Override
     public RecipeBookTypeHolder registerType(ResourceLocation id, RecipeBookCategoryGroup group) {
-        RecipeBookTypeHolder holder = new RecipeBookTypeHolder(id, group);
-        if (TYPE_REGISTRY.put(id, holder) != null) {
-            throw new IllegalArgumentException("Duplicate registration: " + id);
+        RecipeBookTypeHolder type = new RecipeBookTypeHolder(id, group);
+        if (TYPE_REGISTRY.put(id, type) != null) {
+            throw new IllegalArgumentException("Duplicate type registration: " + id);
         }
-        return holder;
+
+        for (RecipeBookCategoryHolder category : group.getCategories()) {
+            category.setType(type);
+        }
+        return type;
     }
 
     @Override

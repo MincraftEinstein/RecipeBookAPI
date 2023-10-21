@@ -5,6 +5,7 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import einstein.recipebook_api.api.RecipeBookRegistry;
 import einstein.recipebook_api.impl.RecipeBookRegistryImpl;
+import einstein.test_mod.TestMod;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
@@ -28,7 +29,7 @@ public class TestRecipeSerializer implements RecipeSerializer<TestRecipe> {
                             : DataResult.success(NonNullList.of(Ingredient.EMPTY, ingredients1));
                 }, DataResult::success).forGetter(recipe -> recipe.ingredients),
                 BuiltInRegistries.ITEM.byNameCodec().xmap(ItemStack::new, ItemStack::getItem).fieldOf("result").forGetter(recipe -> recipe.result),
-                RecipeBookRegistry.RECIPE_BOOK_CATEGORY_CODEC.fieldOf("category").forGetter(recipe -> recipe.categoryHolder)
+                RecipeBookRegistry.recipeBookCategoryCodec(TestMod.TEST_TYPE).fieldOf("category").forGetter(recipe -> recipe.categoryHolder)
         ).apply(instance, TestRecipe::new));
     }
 

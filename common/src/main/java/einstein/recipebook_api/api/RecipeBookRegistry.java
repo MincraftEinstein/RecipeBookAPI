@@ -7,39 +7,35 @@ import com.mojang.serialization.DynamicOps;
 import einstein.recipebook_api.impl.RecipeBookRegistryImpl;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ExtraCodecs;
-import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.ItemStack;
+
+import static einstein.recipebook_api.impl.RecipeBookRegistryImpl.CATEGORY_REGISTRY;
 
 public interface RecipeBookRegistry {
 
     RecipeBookRegistryImpl INSTANCE = new RecipeBookRegistryImpl();
-    Codec<RecipeBookCategoryHolder> RECIPE_BOOK_CATEGORY_CODEC = new Codec<>() {
 
-        private static final Codec<RecipeBookCategoryHolder> CODEC = ExtraCodecs.stringResolverCodec(holder -> holder.getId().toString(), string -> {
-            if (RecipeBookRegistryImpl.CATEGORY_REGISTRY.size() > StringRepresentable.PRE_BUILT_MAP_THRESHOLD) {
-                return string == null || ResourceLocation.tryParse(string) == null
-                        ? null
-                        : RecipeBookRegistryImpl.CATEGORY_REGISTRY.get(new ResourceLocation(string));
+    static Codec<RecipeBookCategoryHolder> recipeBookCategoryCodec(RecipeBookTypeHolder type) {
+        return new Codec<>() {
+
+            private final Codec<RecipeBookCategoryHolder> codec = ExtraCodecs.stringResolverCodec(
+                    holder -> holder.getId().toString(),
+                    string -> CATEGORY_REGISTRY.values().stream()
+                            .filter(holder -> type.equals(holder.getType()) && holder.toString().equals(string))
+                            .findFirst().orElse(null)
+            );
+
+            @Override
+            public <T> DataResult<Pair<RecipeBookCategoryHolder, T>> decode(DynamicOps<T> ops, T input) {
+                return codec.decode(ops, input);
             }
-            for (RecipeBookCategoryHolder holder : RecipeBookRegistryImpl.CATEGORY_REGISTRY.values()) {
-                if (holder.toString().equals(string)) {
-                    return holder;
-                }
+
+            @Override
+            public <T> DataResult<T> encode(RecipeBookCategoryHolder input, DynamicOps<T> ops, T prefix) {
+                return codec.encode(input, ops, prefix);
             }
-
-            return null;
-        });
-
-        @Override
-        public <T> DataResult<Pair<RecipeBookCategoryHolder, T>> decode(DynamicOps<T> ops, T input) {
-            return CODEC.decode(ops, input);
-        }
-
-        @Override
-        public <T> DataResult<T> encode(RecipeBookCategoryHolder input, DynamicOps<T> ops, T prefix) {
-            return CODEC.encode(input, ops, prefix);
-        }
-    };
+        };
+    }
 
     RecipeBookTypeHolder registerType(ResourceLocation id, RecipeBookCategoryGroup group);
 
