@@ -45,5 +45,9 @@ public interface RecipeBookRegistry {
 
     RecipeBookCategoryHolder registerCategory(ResourceLocation id, ItemStack... iconStacks);
 
-    RecipeBookCategoryGroup registerCategoryGroup(RecipeBookCategoryHolder mainCategory, RecipeBookCategoryHolder... categories);
+    RecipeBookCategoryHolder registerCategory(RecipeBookCategoryHolder category);
+
+    RecipeBookCategoryGroup registerCategoryGroup(ResourceLocation id, RecipeBookCategoryHolder... categories);
+
+    RecipeBookCategoryGroup registerCategoryGroup(RecipeBookCategoryGroup group);
 }

@@ -2,7 +2,6 @@ package einstein.test_mod;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import einstein.recipebook_api.api.RecipeBookCategoryGroup;
-import einstein.recipebook_api.api.RecipeBookCategoryHolder;
 import einstein.recipebook_api.api.RecipeBookRegistry;
 import einstein.recipebook_api.api.RecipeBookTypeHolder;
 import einstein.recipebook_api.platform.Services;
@@ -14,7 +13,6 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Blocks;
@@ -37,14 +35,15 @@ public class TestMod {
         }
     });
     public static final Supplier<MenuType<TestMenu>> TEST_MENU = REGISTRY.register("test_menu", BuiltInRegistries.MENU, () -> REGISTRY.createMenuType((id, inventory, buf) -> new TestMenu(id, inventory)));
-    public static final RecipeBookCategoryHolder TEST_SEARCH_CATEGORY = RecipeBookRegistry.INSTANCE.registerCategory(loc("test_search_category"), new ItemStack(Items.COMPASS));
-    public static final RecipeBookCategoryHolder TEST_CATEGORY = RecipeBookRegistry.INSTANCE.registerCategory(loc("test_category"), new ItemStack(Blocks.COMMAND_BLOCK), new ItemStack(Blocks.CHAIN_COMMAND_BLOCK));
-    public static final RecipeBookCategoryHolder TEST_CATEGORY2 = RecipeBookRegistry.INSTANCE.registerCategory(loc("test_category2"), new ItemStack(Blocks.CHAIN_COMMAND_BLOCK));
-    public static final RecipeBookCategoryHolder TEST_CATEGORY3 = RecipeBookRegistry.INSTANCE.registerCategory(loc("test_category3"), new ItemStack(Blocks.REPEATING_COMMAND_BLOCK));
-    public static final RecipeBookCategoryHolder TEST_CATEGORY4 = RecipeBookRegistry.INSTANCE.registerCategory(loc("test_category4"), new ItemStack(Blocks.STRUCTURE_BLOCK));
-    public static final RecipeBookCategoryHolder TEST_CATEGORY5 = RecipeBookRegistry.INSTANCE.registerCategory(loc("test_category5"), new ItemStack(Blocks.LIGHT));
-    public static final RecipeBookCategoryGroup TEST_GROUP = RecipeBookRegistry.INSTANCE.registerCategoryGroup(TEST_SEARCH_CATEGORY, TEST_CATEGORY, TEST_CATEGORY2, TEST_CATEGORY3, TEST_CATEGORY4, TEST_CATEGORY5);
-    public static final RecipeBookTypeHolder TEST_TYPE = RecipeBookRegistry.INSTANCE.registerType(loc("test_type"), TEST_GROUP);
+    public static final RecipeBookTypeHolder TEST_TYPE = RecipeBookRegistry.INSTANCE.registerType(loc("test_type"), RecipeBookCategoryGroup.create(loc("test_group"))
+            .namePrefix("test")
+            .addCategory("category", new ItemStack(Blocks.COMMAND_BLOCK))
+            .addCategory("category2", new ItemStack(Blocks.CHAIN_COMMAND_BLOCK))
+            .addCategory("category3", new ItemStack(Blocks.REPEATING_COMMAND_BLOCK))
+            .addCategory("category4", new ItemStack(Blocks.STRUCTURE_BLOCK))
+            .addCategory("category5", new ItemStack(Blocks.LIGHT))
+            .build()
+    );
     public static final KeyMapping OPEN_TEST_MENU = REGISTRY.registerKeyMapping(() -> new KeyMapping("open_test_menu", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_C, KeyMapping.CATEGORY_INVENTORY));
 
     public static void init() {

@@ -16,7 +16,7 @@ public class RecipeBookRegistryImpl implements RecipeBookRegistry {
 
     public static final Map<ResourceLocation, RecipeBookTypeHolder> TYPE_REGISTRY = new HashMap<>();
     public static final Map<ResourceLocation, RecipeBookCategoryHolder> CATEGORY_REGISTRY = new HashMap<>();
-    public static final List<RecipeBookCategoryGroup> CATEGORY_GROUP_REGISTRY = new ArrayList<>();
+    public static final Map<ResourceLocation, RecipeBookCategoryGroup> CATEGORY_GROUP_REGISTRY = new HashMap<>();
 
     @Override
     public RecipeBookTypeHolder registerType(ResourceLocation id, RecipeBookCategoryGroup group) {
@@ -29,23 +29,35 @@ public class RecipeBookRegistryImpl implements RecipeBookRegistry {
 
     @Override
     public RecipeBookCategoryHolder registerCategory(ResourceLocation id, ItemStack... iconStacks) {
-        if (iconStacks.length > 2) {
-            throw new IllegalArgumentException("Too many icons for category: " + id + " - the max is 2");
-        }
-        RecipeBookCategoryHolder holder = new RecipeBookCategoryHolder(id, iconStacks);
-        if (CATEGORY_REGISTRY.put(id, holder) != null) {
-            throw new IllegalArgumentException("Duplicate registration: " + id);
-        }
-        return holder;
+        return registerCategory(new RecipeBookCategoryHolder(id, iconStacks));
     }
 
     @Override
-    public RecipeBookCategoryGroup registerCategoryGroup(RecipeBookCategoryHolder mainCategory, RecipeBookCategoryHolder... categories) {
-        if (categories.length > 5) {
-            throw new IllegalArgumentException("Too many categories for group the max is 5");
+    public RecipeBookCategoryHolder registerCategory(RecipeBookCategoryHolder category) {
+        if (category.getIconStacks().length > 2) {
+            throw new IllegalArgumentException("Too many icons for category: " + category.getId() + " - the max is 2");
         }
-        RecipeBookCategoryGroup group = new RecipeBookCategoryGroup(mainCategory, List.of(categories));
-        CATEGORY_GROUP_REGISTRY.add(group);
+
+        if (CATEGORY_REGISTRY.put(category.getId(), category) != null) {
+            throw new IllegalArgumentException("Duplicate category registration: " + category.getId());
+        }
+        return category;
+    }
+
+    @Override
+    public RecipeBookCategoryGroup registerCategoryGroup(ResourceLocation id, RecipeBookCategoryHolder... categories) {
+        return registerCategoryGroup(new RecipeBookCategoryGroup(id, List.of(categories)));
+    }
+
+    @Override
+    public RecipeBookCategoryGroup registerCategoryGroup(RecipeBookCategoryGroup group) {
+        if (group.getCategories().size() > 5) {
+            throw new IllegalArgumentException("Too many categories for group: " + group.getId() + " - the max is 5");
+        }
+
+        if (CATEGORY_GROUP_REGISTRY.put(group.getId(), group) != null) {
+            throw new IllegalArgumentException("Duplicate category group registration: " + group.getId());
+        }
         return group;
     }
 }

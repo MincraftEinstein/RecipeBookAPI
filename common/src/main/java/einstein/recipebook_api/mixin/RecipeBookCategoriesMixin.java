@@ -47,9 +47,9 @@ public class RecipeBookCategoriesMixin {
             holder.setCategory(category);
         });
 
-        for (RecipeBookCategoryGroup group : RecipeBookRegistryImpl.CATEGORY_GROUP_REGISTRY) {
-            aggregateCategories.put(group.mainCategory().getCategory(), group.categories().stream().map(RecipeBookCategoryHolder::getCategory).toList());
-        }
+        RecipeBookRegistryImpl.CATEGORY_GROUP_REGISTRY.forEach((id, group) -> {
+            aggregateCategories.put(group.getSearchCategory().getCategory(), group.getCategories().stream().map(RecipeBookCategoryHolder::getCategory).toList());
+        });
 
         setAggregateCategories(aggregateCategories);
     }
