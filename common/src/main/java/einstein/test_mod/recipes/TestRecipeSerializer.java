@@ -3,13 +3,10 @@ package einstein.test_mod.recipes;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import einstein.recipebook_api.api.RecipeBookRegistry;
-import einstein.recipebook_api.impl.RecipeBookRegistryImpl;
-import einstein.test_mod.TestMod;
+import einstein.test_mod.TestRecipeCategories;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -29,13 +26,14 @@ public class TestRecipeSerializer implements RecipeSerializer<TestRecipe> {
                             : DataResult.success(NonNullList.of(Ingredient.EMPTY, ingredients1));
                 }, DataResult::success).forGetter(recipe -> recipe.ingredients),
                 BuiltInRegistries.ITEM.byNameCodec().xmap(ItemStack::new, ItemStack::getItem).fieldOf("result").forGetter(recipe -> recipe.result),
-                RecipeBookRegistry.recipeBookCategoryCodec(TestMod.TEST_TYPE).fieldOf("category").forGetter(recipe -> recipe.categoryHolder)
+//                RecipeBookRegistry.recipeBookCategoryCodec(TestMod.TEST_REGISTRY, TestMod.TEST_RECIPE_TYPE.get()).fieldOf("category").forGetter(recipe -> recipe.categoryHolder)
+                TestRecipeCategories.CODEC.fieldOf("category").forGetter(recipe -> recipe.categories)
         ).apply(instance, TestRecipe::new));
     }
 
     @Override
     public TestRecipe fromNetwork(FriendlyByteBuf buf) {
-        ResourceLocation category = buf.readResourceLocation();
+        TestRecipeCategories category = buf.readEnum(TestRecipeCategories.class);
         ItemStack resultStack = buf.readItem();
         int ingredientCount = buf.readByte();
         NonNullList<Ingredient> ingredients = NonNullList.withSize(ingredientCount, Ingredient.EMPTY);
@@ -44,12 +42,12 @@ public class TestRecipeSerializer implements RecipeSerializer<TestRecipe> {
             ingredients.set(i, Ingredient.fromNetwork(buf));
         }
 
-        return new TestRecipe(ingredients, resultStack, RecipeBookRegistryImpl.CATEGORY_REGISTRY.get(category));
+        return new TestRecipe(ingredients, resultStack, category);
     }
 
     @Override
     public void toNetwork(FriendlyByteBuf buf, TestRecipe recipe) {
-        buf.writeResourceLocation(recipe.categoryHolder.getId());
+        buf.writeEnum(recipe.getCategory());
         buf.writeItem(recipe.result);
         buf.writeByte(recipe.ingredients.size());
         recipe.ingredients.forEach(ingredient -> ingredient.toNetwork(buf));

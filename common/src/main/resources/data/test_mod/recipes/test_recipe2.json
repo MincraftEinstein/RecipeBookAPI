@@ -1,6 +1,6 @@
 {
   "type": "test_mod:test_recipe_serializer",
-  "category": "test_mod:test_category2",
+  "category": "test_category2",
   "ingredients": [
     {
       "item": "minecraft:emerald"

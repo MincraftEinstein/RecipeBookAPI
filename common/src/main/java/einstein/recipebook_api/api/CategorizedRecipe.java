@@ -1,6 +1,6 @@
 package einstein.recipebook_api.api;
 
-public interface CategorizedRecipe {
+public interface CategorizedRecipe<T extends Enum<?> & RecipeBookCategoryEnum> {
 
-    RecipeBookCategoryHolder getRecipeBookCategory();
+    T getRecipeBookCategory();
 }

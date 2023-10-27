@@ -1,35 +1,40 @@
 package einstein.recipebook_api.api;
 
 import net.minecraft.client.RecipeBookCategories;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
-public class RecipeBookCategoryHolder {
+public class RecipeBookCategoryHolder<T extends Enum<?> & RecipeBookCategoryEnum> {
 
     private RecipeBookCategories category;
-    private RecipeBookTypeHolder type;
-    private final ResourceLocation id;
+    private final String name;
+    private final boolean isSearch;
     private final ItemStack[] iconStacks;
+    private final T enumType;
 
-    public RecipeBookCategoryHolder(ResourceLocation id, ItemStack... iconStacks) {
-        this.id = id;
-        this.iconStacks = iconStacks;
+    public RecipeBookCategoryHolder(T enumType) {
+        this.name = enumType.getName();
+        this.isSearch = false;
+        this.iconStacks = enumType.getIconStacks();
+        this.enumType = enumType;
     }
 
-    public ResourceLocation getId() {
-        return id;
+    public RecipeBookCategoryHolder(String name, boolean isSearch, ItemStack... iconStacks) {
+        this.name = name;
+        this.isSearch = isSearch;
+        this.iconStacks = iconStacks;
+        this.enumType = null;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public boolean isSearch() {
+        return isSearch;
     }
 
     public ItemStack[] getIconStacks() {
         return iconStacks;
-    }
-
-    public RecipeBookTypeHolder getType() {
-        return type;
-    }
-
-    public void setType(RecipeBookTypeHolder type) {
-        this.type = type;
     }
 
     public RecipeBookCategories getCategory() {
@@ -40,8 +45,7 @@ public class RecipeBookCategoryHolder {
         this.category = category;
     }
 
-    @Override
-    public String toString() {
-        return id.toString();
+    public T getEnumType() {
+        return enumType;
     }
 }

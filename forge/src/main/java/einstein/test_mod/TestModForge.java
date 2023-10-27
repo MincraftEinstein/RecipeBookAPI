@@ -12,7 +12,7 @@ public class TestModForge {
     public TestModForge() {
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         TestMod.init();
-        RecipeBookAPIForge.register(modEventBus);
+        RecipeBookAPIForge.registerRecipeBooks(modEventBus);
         ForgeRegistryHelper.REGISTRIES.forEach((registry, deferredRegister) ->
                 deferredRegister.register(modEventBus));
         modEventBus.addListener((RegisterKeyMappingsEvent event) ->

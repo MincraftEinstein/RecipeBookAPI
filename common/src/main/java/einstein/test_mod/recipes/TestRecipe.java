@@ -1,8 +1,8 @@
 package einstein.test_mod.recipes;
 
 import einstein.recipebook_api.api.CategorizedRecipe;
-import einstein.recipebook_api.api.RecipeBookCategoryHolder;
 import einstein.test_mod.TestMod;
+import einstein.test_mod.TestRecipeCategories;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.world.Container;
@@ -13,16 +13,16 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
-public class TestRecipe implements Recipe<Container>, CategorizedRecipe {
+public class TestRecipe implements Recipe<Container>, CategorizedRecipe<TestRecipeCategories> {
 
     protected final NonNullList<Ingredient> ingredients;
     protected final ItemStack result;
-    protected final RecipeBookCategoryHolder categoryHolder;
+    protected final TestRecipeCategories categories;
 
-    public TestRecipe(NonNullList<Ingredient> ingredients, ItemStack result, RecipeBookCategoryHolder categoryHolder) {
+    public TestRecipe(NonNullList<Ingredient> ingredients, ItemStack result, TestRecipeCategories categories) {
         this.ingredients = ingredients;
         this.result = result;
-        this.categoryHolder = categoryHolder;
+        this.categories = categories;
     }
 
     @Override
@@ -60,8 +60,12 @@ public class TestRecipe implements Recipe<Container>, CategorizedRecipe {
         return TestMod.TEST_RECIPE_TYPE.get();
     }
 
+    public TestRecipeCategories getCategory() {
+        return categories;
+    }
+
     @Override
-    public RecipeBookCategoryHolder getRecipeBookCategory() {
-        return categoryHolder;
+    public TestRecipeCategories getRecipeBookCategory() {
+        return categories;
     }
 }

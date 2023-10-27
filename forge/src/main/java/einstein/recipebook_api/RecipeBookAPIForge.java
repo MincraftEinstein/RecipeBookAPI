@@ -1,10 +1,6 @@
 package einstein.recipebook_api;
 
-import einstein.recipebook_api.api.CategorizedRecipe;
-import einstein.recipebook_api.api.RecipeBookCategoryHolder;
-import einstein.recipebook_api.impl.RecipeBookRegistryImpl;
-import net.minecraft.client.RecipeBookCategories;
-import net.minecraft.world.inventory.RecipeBookType;
+import einstein.recipebook_api.api.RecipeBookRegistry;
 import net.minecraftforge.client.event.RegisterRecipeBookCategoriesEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
@@ -14,32 +10,15 @@ public class RecipeBookAPIForge {
 
     public RecipeBookAPIForge() {
         RecipeBookAPI.init();
-
-        RecipeBookRegistryImpl.CATEGORY_REGISTRY.forEach((id, holder) -> {
-            RecipeBookCategories category = RecipeBookCategories.create(RecipeBookAPI.enumName(id), holder.getIconStacks());
-            holder.setCategory(category);
-        });
-        RecipeBookRegistryImpl.TYPE_REGISTRY.forEach((id, holder) -> {
-            RecipeBookType type = RecipeBookType.create(RecipeBookAPI.enumName(id));
-            holder.setType(type);
-        });
     }
 
-    public static void register(IEventBus modEventBus) {
+    public static void registerRecipeBooks(IEventBus modEventBus) {
         modEventBus.addListener((RegisterRecipeBookCategoriesEvent event) -> {
-            RecipeBookRegistryImpl.TYPE_REGISTRY.forEach((id, holder) -> {
-                event.registerBookCategories(holder.getType(), holder.getGroup().getAllCategories());
-            });
-            RecipeBookRegistryImpl.CATEGORY_GROUP_REGISTRY.forEach((id, holder) -> {
-                event.registerAggregateCategory(holder.getSearchCategory().getCategory(), holder.getCategories().stream().map(RecipeBookCategoryHolder::getCategory).toList());
-            });
-            RecipeBookRegistryImpl.CATEGORY_REGISTRY.forEach((id, holder) -> {
-                // TODO remove null
-                event.registerRecipeCategoryFinder(null, recipe -> {
-                    if (recipe instanceof CategorizedRecipe categorizedRecipe) {
-                        return categorizedRecipe.getRecipeBookCategory().getCategory();
-                    }
-                    return null;
+            RecipeBookRegistry.RECIPE_BOOK_REGISTRY.forEach((modId, registry) -> {
+                registry.getTypes().forEach((recipeType, typeHolder) -> {
+                    event.registerRecipeCategoryFinder(recipeType.get(), recipe -> RecipeBookAPI.getCategory(recipe, typeHolder));
+                    event.registerBookCategories(typeHolder.getType(), typeHolder.getAllCategories());
+                    event.registerAggregateCategory(typeHolder.getSearchCategory().getCategory(), typeHolder.getCategories());
                 });
             });
         });

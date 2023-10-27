@@ -1,10 +1,17 @@
 package einstein.recipebook_api;
 
 import com.mojang.datafixers.util.Pair;
+import einstein.recipebook_api.api.CategorizedRecipe;
+import einstein.recipebook_api.api.RecipeBookCategoryHolder;
+import einstein.recipebook_api.api.RecipeBookTypeHolder;
+import net.minecraft.client.RecipeBookCategories;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.Recipe;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+    - fallback category holder has null category
+*/
 public class RecipeBookAPI {
 
     public static final String MOD_ID = "recipebook_api";
@@ -18,12 +25,23 @@ public class RecipeBookAPI {
         return new ResourceLocation(MOD_ID, path);
     }
 
-    public static String enumName(ResourceLocation id) {
-        return MOD_ID + "$" + id.getNamespace() + "$" + id.getPath().toUpperCase();
+    public static String enumName(String modId, String name) {
+        return MOD_ID + "$" + modId + "$" + name.toUpperCase();
     }
 
-    public static Pair<String, String> getRecipeBookTags(ResourceLocation id) {
-        String serialized = MOD_ID + "." + id;
+    public static Pair<String, String> getRecipeBookTags(String modId, String name) {
+        String serialized = MOD_ID + "." + modId;
         return Pair.of("is" + serialized + "GuiOpen", "is" + serialized + "FilteringCraftable");
+    }
+
+    public static RecipeBookCategories getCategory(Recipe<?> recipe, RecipeBookTypeHolder<?, ?> typeHolder) {
+        if (recipe instanceof CategorizedRecipe<?> categorizedRecipe) {
+            for (RecipeBookCategoryHolder<?> categoryHolder : typeHolder.getCategoryHolders()) {
+                if (!categoryHolder.isSearch() && categorizedRecipe.getRecipeBookCategory().equals(categoryHolder.getEnumType())) {
+                    return categoryHolder.getCategory();
+                }
+            }
+        }
+        return typeHolder.getFallbackCategory().getCategory();
     }
 }

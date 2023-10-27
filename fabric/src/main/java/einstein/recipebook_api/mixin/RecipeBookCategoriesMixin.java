@@ -1,11 +1,8 @@
 package einstein.recipebook_api.mixin;
 
 import einstein.recipebook_api.RecipeBookAPI;
-import einstein.recipebook_api.api.RecipeBookCategoryHolder;
-import einstein.recipebook_api.impl.RecipeBookRegistryImpl;
-import einstein.recipebook_api.api.RecipeBookTypeHolder;
+import einstein.recipebook_api.api.RecipeBookRegistry;
 import net.minecraft.client.RecipeBookCategories;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.RecipeBookType;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.*;
@@ -41,13 +38,14 @@ public class RecipeBookCategoriesMixin {
     private static void clInit(CallbackInfo ci) {
         Map<RecipeBookCategories, List<RecipeBookCategories>> aggregateCategories = new HashMap<>(getAggregateCategories());
 
-        RecipeBookRegistryImpl.CATEGORY_REGISTRY.forEach((id, holder) -> {
-            RecipeBookCategories category = recipeBookAPI$register(id, holder.getIconStacks());
-            holder.setCategory(category);
-        });
-
-        RecipeBookRegistryImpl.CATEGORY_GROUP_REGISTRY.forEach((id, group) -> {
-            aggregateCategories.put(group.getSearchCategory().getCategory(), group.getCategories().stream().map(RecipeBookCategoryHolder::getCategory).toList());
+        RecipeBookRegistry.RECIPE_BOOK_REGISTRY.forEach((modId, registry) -> {
+            registry.getTypes().forEach((recipeType, type) -> {
+                type.getAllCategoryHolders().forEach(categoryHolder -> {
+                    RecipeBookCategories category = recipeBookAPI$register(modId, categoryHolder.getName(), categoryHolder.getIconStacks());
+                    categoryHolder.setCategory(category);
+                });
+                aggregateCategories.put(type.getSearchCategory().getCategory(), type.getCategories());
+            });
         });
 
         setAggregateCategories(aggregateCategories);
@@ -59,9 +57,9 @@ public class RecipeBookCategoriesMixin {
     }
 
     @Unique
-    private static RecipeBookCategories recipeBookAPI$register(ResourceLocation id, ItemStack... stacks) {
+    private static RecipeBookCategories recipeBookAPI$register(String modId, String name, ItemStack... stacks) {
         ArrayList<RecipeBookCategories> values = new ArrayList<>(Arrays.asList($VALUES));
-        RecipeBookCategories category = invokeInit(RecipeBookAPI.enumName(id), values.get(values.size() - 1).ordinal() + 1, stacks);
+        RecipeBookCategories category = invokeInit(RecipeBookAPI.enumName(modId, name), values.get(values.size() - 1).ordinal() + 1, stacks);
         values.add(category);
         $VALUES = values.toArray(new RecipeBookCategories[]{});
         return category;
@@ -69,10 +67,12 @@ public class RecipeBookCategoriesMixin {
 
     @Inject(method = "getCategories", at = @At("HEAD"), cancellable = true)
     private static void getCategories(RecipeBookType type, CallbackInfoReturnable<List<RecipeBookCategories>> cir) {
-        for (RecipeBookTypeHolder holder : RecipeBookRegistryImpl.TYPE_REGISTRY.values()) {
-            if (type.equals(holder.getType())) {
-                cir.setReturnValue(holder.getGroup().getAllCategories());
-            }
-        }
+        RecipeBookRegistry.RECIPE_BOOK_REGISTRY.forEach((modId, registry) -> {
+            registry.getTypes().forEach((recipeType, typeHolder) -> {
+                if (type.equals(typeHolder.getType())) {
+                    cir.setReturnValue(typeHolder.getAllCategories());
+                }
+            });
+        });
     }
 }

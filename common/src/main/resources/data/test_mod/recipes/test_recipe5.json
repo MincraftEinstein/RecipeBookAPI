@@ -1,6 +1,6 @@
 {
   "type": "test_mod:test_recipe_serializer",
-  "category": "test_mod:test_category5",
+  "category": "test_category5",
   "ingredients": [
     {
       "item": "minecraft:iron_ingot"

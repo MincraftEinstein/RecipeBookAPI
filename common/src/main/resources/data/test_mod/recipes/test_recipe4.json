@@ -1,6 +1,6 @@
 {
   "type": "test_mod:test_recipe_serializer",
-  "category": "test_mod:test_category4",
+  "category": "test_category4",
   "ingredients": [
     {
       "item": "minecraft:gold_ingot"

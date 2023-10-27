@@ -2,8 +2,7 @@ package einstein.recipebook_api.mixin;
 
 import com.mojang.datafixers.util.Pair;
 import einstein.recipebook_api.RecipeBookAPI;
-import einstein.recipebook_api.impl.RecipeBookRegistryImpl;
-import einstein.recipebook_api.api.RecipeBookTypeHolder;
+import einstein.recipebook_api.api.RecipeBookRegistry;
 import net.minecraft.stats.RecipeBookSettings;
 import net.minecraft.world.inventory.RecipeBookType;
 import org.spongepowered.asm.mixin.Mixin;
@@ -33,14 +32,16 @@ public class RecipeBookSettingsMixin {
     @Inject(method = "<clinit>", at = @At("RETURN"))
     private static void clInit(CallbackInfo ci) {
         Map<RecipeBookType, Pair<String, String>> tagFields = new HashMap<>(getTagFields());
-        RecipeBookRegistryImpl.TYPE_REGISTRY.forEach((id, holder) -> {
-            RecipeBookType type = holder.getType();
-            if (type != null) {
-                tagFields.put(holder.getType(), RecipeBookAPI.getRecipeBookTags(id));
-            }
-            else {
-                RecipeBookAPI.LOGGER.error("Cannot add Recipe Book tags for null type: {}", id);
-            }
+        RecipeBookRegistry.RECIPE_BOOK_REGISTRY.forEach((modId, registry) -> {
+            registry.getTypes().forEach((recipeType, holder) -> {
+                RecipeBookType type = holder.getType();
+                if (type != null) {
+                    tagFields.put(holder.getType(), RecipeBookAPI.getRecipeBookTags(modId, holder.getName()));
+                }
+                else {
+                    RecipeBookAPI.LOGGER.error("Cannot add Recipe Book tags for null type: {}", modId + ":" + holder.getName());
+                }
+            });
         });
         setTagFields(tagFields);
     }
