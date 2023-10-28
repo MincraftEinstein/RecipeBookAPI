@@ -1,6 +1,5 @@
 package einstein.recipebook_api;
 
-import com.mojang.datafixers.util.Pair;
 import einstein.recipebook_api.api.CategorizedRecipe;
 import einstein.recipebook_api.api.RecipeBookCategoryHolder;
 import einstein.recipebook_api.api.RecipeBookTypeHolder;
@@ -27,11 +26,6 @@ public class RecipeBookAPI {
 
     public static String enumName(String modId, String name) {
         return MOD_ID + "$" + modId + "$" + name.toUpperCase();
-    }
-
-    public static Pair<String, String> getRecipeBookTags(String modId, String name) {
-        String serialized = MOD_ID + "." + modId;
-        return Pair.of("is" + serialized + "GuiOpen", "is" + serialized + "FilteringCraftable");
     }
 
     public static RecipeBookCategories getCategory(Recipe<?> recipe, RecipeBookTypeHolder<?, ?> typeHolder) {

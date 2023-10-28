@@ -36,7 +36,8 @@ public class RecipeBookSettingsMixin {
             registry.getTypes().forEach((recipeType, holder) -> {
                 RecipeBookType type = holder.getType();
                 if (type != null) {
-                    tagFields.put(holder.getType(), RecipeBookAPI.getRecipeBookTags(modId, holder.getName()));
+                    String name = holder.getType().name().toLowerCase(java.util.Locale.ROOT).replace("_", "");
+                    tagFields.put(holder.getType(), Pair.of("is" + name + "GuiOpen", "is" + name + "FilteringCraftable"));
                 }
                 else {
                     RecipeBookAPI.LOGGER.error("Cannot add Recipe Book tags for null type: {}", modId + ":" + holder.getName());
