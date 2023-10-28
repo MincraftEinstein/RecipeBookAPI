@@ -41,7 +41,7 @@ public class RecipeBookCategoriesMixin {
         RecipeBookRegistry.RECIPE_BOOK_REGISTRY.forEach((modId, registry) -> {
             registry.getTypes().forEach((recipeType, type) -> {
                 type.getAllCategoryHolders().forEach(categoryHolder -> {
-                    RecipeBookCategories category = recipeBookAPI$register(modId, categoryHolder.getName(), categoryHolder.getIconStacks());
+                    RecipeBookCategories category = recipeBookAPI$register(modId, RecipeBookAPI.categoryName(categoryHolder), categoryHolder.getIconStacks());
                     categoryHolder.setCategory(category);
                 });
                 aggregateCategories.put(type.getSearchCategory().getCategory(), type.getCategories());

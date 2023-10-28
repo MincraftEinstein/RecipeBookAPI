@@ -22,12 +22,12 @@ public class RecipeBookTypeHolder<T extends Enum<?> & RecipeBookCategoryEnum, V 
     public RecipeBookTypeHolder(String name, Supplier<V> recipeType, T[] categories, T fallbackCategory) {
         this.name = name;
         this.recipeType = recipeType;
-        this.fallbackCategory = new RecipeBookCategoryHolder<>(fallbackCategory);
-        searchCategory = new RecipeBookCategoryHolder<>(name + "_search", true, new ItemStack(Items.COMPASS));
+        this.fallbackCategory = new RecipeBookCategoryHolder<>(fallbackCategory, this);
+        searchCategory = new RecipeBookCategoryHolder<>(name + "_search", true, this, new ItemStack(Items.COMPASS));
 
         List<RecipeBookCategoryHolder<T>> holders = new ArrayList<>();
         for (T category : categories) {
-            holders.add(new RecipeBookCategoryHolder<>(category));
+            holders.add(new RecipeBookCategoryHolder<>(category, this));
         }
         this.categories = holders;
     }

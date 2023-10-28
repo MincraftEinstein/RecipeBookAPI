@@ -20,7 +20,7 @@ public class MinecraftForgeMixin {
                 typeHolder.setType(RecipeBookType.create(RecipeBookAPI.enumName(modId, typeHolder.getName())));
 
                 typeHolder.getAllCategoryHolders().forEach(categoryHolder -> {
-                    RecipeBookCategories category = RecipeBookCategories.create(RecipeBookAPI.enumName(modId, categoryHolder.getName()), categoryHolder.getIconStacks());
+                    RecipeBookCategories category = RecipeBookCategories.create(RecipeBookAPI.enumName(modId, RecipeBookAPI.categoryName(categoryHolder)), categoryHolder.getIconStacks());
                     categoryHolder.setCategory(category);
                 });
             });

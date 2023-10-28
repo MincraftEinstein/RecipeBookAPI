@@ -10,17 +10,20 @@ public class RecipeBookCategoryHolder<T extends Enum<?> & RecipeBookCategoryEnum
     private final boolean isSearch;
     private final ItemStack[] iconStacks;
     private final T enumType;
+    private final RecipeBookTypeHolder<T, ?> type;
 
-    public RecipeBookCategoryHolder(T enumType) {
+    public RecipeBookCategoryHolder(T enumType, RecipeBookTypeHolder<T, ?> type) {
         this.name = enumType.getName();
         this.isSearch = false;
+        this.type = type;
         this.iconStacks = enumType.getIconStacks();
         this.enumType = enumType;
     }
 
-    public RecipeBookCategoryHolder(String name, boolean isSearch, ItemStack... iconStacks) {
+    public RecipeBookCategoryHolder(String name, boolean isSearch, RecipeBookTypeHolder<T, ?> type, ItemStack... iconStacks) {
         this.name = name;
         this.isSearch = isSearch;
+        this.type = type;
         this.iconStacks = iconStacks;
         this.enumType = null;
     }
@@ -47,5 +50,9 @@ public class RecipeBookCategoryHolder<T extends Enum<?> & RecipeBookCategoryEnum
 
     public T getEnumType() {
         return enumType;
+    }
+
+    public RecipeBookTypeHolder<T, ?> getType() {
+        return type;
     }
 }

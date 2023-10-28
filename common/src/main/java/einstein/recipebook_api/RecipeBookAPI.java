@@ -24,6 +24,13 @@ public class RecipeBookAPI {
         return new ResourceLocation(MOD_ID, path);
     }
 
+    public static String categoryName(RecipeBookCategoryHolder<?> category) {
+        if (category.isSearch()) {
+            return category.getName();
+        }
+        return category.getType().getName() + "$" + category.getName();
+    }
+
     public static String enumName(String modId, String name) {
         return MOD_ID + "$" + modId + "$" + name.toUpperCase();
     }
