@@ -30,7 +30,7 @@ public class RecipeBookAPI {
     }
 
     public static String enumName(String modId, String name) {
-        return MOD_ID + "$" + modId + "$" + name.toUpperCase();
+        return (MOD_ID + "$" + modId + "$" + name).toUpperCase();
     }
 
     public static RecipeBookCategories getCategory(Recipe<?> recipe, RecipeBookTypeHolder<?, ?> typeHolder) {
