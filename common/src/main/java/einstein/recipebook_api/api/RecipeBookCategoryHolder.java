@@ -13,7 +13,7 @@ public class RecipeBookCategoryHolder<T extends Enum<?> & RecipeBookCategoryEnum
     private final RecipeBookTypeHolder<T, ?> type;
 
     public RecipeBookCategoryHolder(T enumType, RecipeBookTypeHolder<T, ?> type) {
-        this.name = enumType.getName();
+        this.name = enumType.name();
         this.isSearch = false;
         this.type = type;
         this.iconStacks = enumType.getIconStacks();
