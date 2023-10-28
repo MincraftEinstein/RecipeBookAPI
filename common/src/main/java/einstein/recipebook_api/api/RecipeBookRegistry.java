@@ -63,12 +63,25 @@ public class RecipeBookRegistry {
 
     public <T extends Enum<?> & RecipeBookCategoryEnum, V extends RecipeType<?>> RecipeBookTypeHolder<T, V> registerType(String name, Supplier<V> recipeType, T[] categories, T fallbackCategory) {
         if (types.containsKey(recipeType)) {
-            throw new IllegalArgumentException("Duplicate registration");
+            throw new IllegalArgumentException("Duplicate type registration: " + name);
         }
 
         RecipeBookTypeHolder<T, V> type = new RecipeBookTypeHolder<>(name, recipeType, categories, fallbackCategory);
+        validateCategories(type, categories);
         types.put(recipeType, type);
         return type;
+    }
+
+    private static <T extends Enum<?> & RecipeBookCategoryEnum> void validateCategories(RecipeBookTypeHolder<T, ?> type, T[] categories) {
+        if (categories.length > 5) {
+            throw new IllegalArgumentException("Too many categories for type: " + type.getName() + " - the max is 5");
+        }
+
+        for (T category : categories) {
+            if (category.getIconStacks().length > 2) {
+                throw new IllegalArgumentException("Too many icons for category: " + category.getName() + " - the max is 2");
+            }
+        }
     }
 
     public Map<Supplier<? extends RecipeType<?>>, RecipeBookTypeHolder<?, ?>> getTypes() {
