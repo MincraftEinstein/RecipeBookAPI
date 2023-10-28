@@ -1,7 +1,7 @@
 package einstein.test_mod;
 
+import com.mojang.serialization.Codec;
 import einstein.recipebook_api.api.RecipeBookCategoryEnum;
-import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 
@@ -12,7 +12,7 @@ public enum TestRecipeCategories implements RecipeBookCategoryEnum {
     CATEGORY4("test_category4", new ItemStack(Blocks.STRUCTURE_BLOCK)),
     CATEGORY5("test_category5", new ItemStack(Blocks.LIGHT));
 
-    public static final EnumCodec<TestRecipeCategories> CODEC = StringRepresentable.fromEnum(TestRecipeCategories::values);
+    public static final Codec<TestRecipeCategories> CODEC = RecipeBookCategoryEnum.codec(TestRecipeCategories::values);
 
     private final String name;
     private final ItemStack[] iconStacks;

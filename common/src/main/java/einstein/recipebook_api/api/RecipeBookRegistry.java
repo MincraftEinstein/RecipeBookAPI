@@ -1,10 +1,5 @@
 package einstein.recipebook_api.api;
 
-import com.mojang.datafixers.util.Pair;
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.DataResult;
-import com.mojang.serialization.DynamicOps;
-import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.crafting.RecipeType;
 
 import java.util.HashMap;
@@ -15,37 +10,6 @@ public class RecipeBookRegistry {
 
     public static final Map<String, RecipeBookRegistry> RECIPE_BOOK_REGISTRY = new HashMap<>();
     private final Map<Supplier<? extends RecipeType<?>>, RecipeBookTypeHolder<?, ?>> types = new HashMap<>();
-
-    public static Codec<RecipeBookCategoryHolder<?>> recipeBookCategoryCodec(RecipeBookRegistry registry, RecipeType<?> recipeType) {
-        return new Codec<>() {
-
-            private final Codec<RecipeBookCategoryHolder<?>> codec = ExtraCodecs.stringResolverCodec(
-                    RecipeBookCategoryHolder::getName,
-                    string -> {
-                        RecipeBookTypeHolder<?, ?> typeHolder = registry.types.values().stream()
-                                .filter(holder -> holder.getRecipeType().get().equals(recipeType))
-                                .findFirst().orElse(null);
-
-                        if (typeHolder != null) {
-                            return typeHolder.getCategoryHolders().stream()
-                                    .filter(category -> category.getName().equals(string))
-                                    .findFirst().orElse(null);
-                        }
-                        return null;
-                    }
-            );
-
-            @Override
-            public <T> DataResult<Pair<RecipeBookCategoryHolder<?>, T>> decode(DynamicOps<T> ops, T input) {
-                return codec.decode(ops, input);
-            }
-
-            @Override
-            public <T> DataResult<T> encode(RecipeBookCategoryHolder<?> input, DynamicOps<T> ops, T prefix) {
-                return codec.encode(input, ops, prefix);
-            }
-        };
-    }
 
     public static RecipeBookRegistry create(String modId) {
         if (RECIPE_BOOK_REGISTRY.containsKey(modId)) {
