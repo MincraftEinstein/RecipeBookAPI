@@ -17,12 +17,10 @@ public class RecipeBookTypeHolder<T extends Enum<?> & RecipeBookCategoryEnum, V 
     private final Supplier<V> recipeType;
     private final RecipeBookCategoryHolder<T> searchCategory;
     private final List<RecipeBookCategoryHolder<T>> categories;
-    private final RecipeBookCategoryHolder<T> fallbackCategory;
 
-    public RecipeBookTypeHolder(String name, Supplier<V> recipeType, T[] categories, T fallbackCategory) {
+    public RecipeBookTypeHolder(String name, Supplier<V> recipeType, T[] categories) {
         this.name = name;
         this.recipeType = recipeType;
-        this.fallbackCategory = new RecipeBookCategoryHolder<>(fallbackCategory, this);
         searchCategory = new RecipeBookCategoryHolder<>(name + "_search", true, this, new ItemStack(Items.COMPASS));
 
         List<RecipeBookCategoryHolder<T>> holders = new ArrayList<>();
@@ -61,10 +59,6 @@ public class RecipeBookTypeHolder<T extends Enum<?> & RecipeBookCategoryEnum, V 
 
     public List<RecipeBookCategories> getAllCategories() {
         return getAllCategoryHolders().stream().map(RecipeBookCategoryHolder::getCategory).toList();
-    }
-
-    public RecipeBookCategoryHolder<T> getFallbackCategory() {
-        return fallbackCategory;
     }
 
     public RecipeBookType getType() {

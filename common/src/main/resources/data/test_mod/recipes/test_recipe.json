@@ -1,6 +1,5 @@
 {
   "type": "test_mod:test_recipe_serializer",
-  "category": "test_category",
   "ingredients": [
     {
       "item": "minecraft:diamond"

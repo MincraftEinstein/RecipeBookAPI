@@ -26,7 +26,7 @@ public class TestRecipeSerializer implements RecipeSerializer<TestRecipe> {
                             : DataResult.success(NonNullList.of(Ingredient.EMPTY, ingredients1));
                 }, DataResult::success).forGetter(recipe -> recipe.ingredients),
                 BuiltInRegistries.ITEM.byNameCodec().xmap(ItemStack::new, ItemStack::getItem).fieldOf("result").forGetter(recipe -> recipe.result),
-                TestRecipeCategories.CODEC.fieldOf("category").forGetter(recipe -> recipe.categories)
+                TestRecipeCategories.CODEC.fieldOf("category").orElse(TestRecipeCategories.CATEGORY).forGetter(recipe -> recipe.categories)
         ).apply(instance, TestRecipe::new));
     }
 

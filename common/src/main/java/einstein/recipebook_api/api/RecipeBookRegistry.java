@@ -22,15 +22,11 @@ public class RecipeBookRegistry {
     }
 
     public <T extends Enum<?> & RecipeBookCategoryEnum, V extends RecipeType<?>> RecipeBookTypeHolder<T, V> registerType(String name, Supplier<V> recipeType, T[] categories) {
-        return registerType(name, recipeType, categories, categories[0]);
-    }
-
-    public <T extends Enum<?> & RecipeBookCategoryEnum, V extends RecipeType<?>> RecipeBookTypeHolder<T, V> registerType(String name, Supplier<V> recipeType, T[] categories, T fallbackCategory) {
         if (types.containsKey(recipeType)) {
             throw new IllegalArgumentException("Duplicate type registration: " + name);
         }
 
-        RecipeBookTypeHolder<T, V> type = new RecipeBookTypeHolder<>(name, recipeType, categories, fallbackCategory);
+        RecipeBookTypeHolder<T, V> type = new RecipeBookTypeHolder<>(name, recipeType, categories);
         validateCategories(type, categories);
         types.put(recipeType, type);
         return type;

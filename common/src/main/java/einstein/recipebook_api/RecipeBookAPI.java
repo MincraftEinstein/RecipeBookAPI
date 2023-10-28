@@ -9,8 +9,6 @@ import net.minecraft.world.item.crafting.Recipe;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-    - fallback category holder has null category
-*/
 public class RecipeBookAPI {
 
     public static final String MOD_ID = "recipebook_api";
@@ -43,6 +41,6 @@ public class RecipeBookAPI {
                 }
             }
         }
-        return typeHolder.getFallbackCategory().getCategory();
+        return null;
     }
 }
