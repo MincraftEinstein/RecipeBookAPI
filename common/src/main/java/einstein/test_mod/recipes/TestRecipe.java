@@ -18,11 +18,13 @@ public class TestRecipe implements Recipe<Container>, CategorizedRecipe<TestReci
     protected final NonNullList<Ingredient> ingredients;
     protected final ItemStack result;
     protected final TestRecipeCategories categories;
+    protected final String group;
 
-    public TestRecipe(NonNullList<Ingredient> ingredients, ItemStack result, TestRecipeCategories categories) {
+    public TestRecipe(NonNullList<Ingredient> ingredients, ItemStack result, TestRecipeCategories categories, String group) {
         this.ingredients = ingredients;
         this.result = result;
         this.categories = categories;
+        this.group = group;
     }
 
     @Override
@@ -38,6 +40,11 @@ public class TestRecipe implements Recipe<Container>, CategorizedRecipe<TestReci
     @Override
     public boolean canCraftInDimensions(int x, int y) {
         return true;
+    }
+
+    @Override
+    public String getGroup() {
+        return group;
     }
 
     @Override

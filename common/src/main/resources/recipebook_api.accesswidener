@@ -1,0 +1,20 @@
+accessWidener v1 named
+
+# Fields
+accessible field net/minecraft/client/gui/screens/recipebook/OverlayRecipeComponent FURNACE_OVERLAY_SPRITE Lnet/minecraft/resources/ResourceLocation;
+accessible field net/minecraft/client/gui/screens/recipebook/OverlayRecipeComponent FURNACE_OVERLAY_HIGHLIGHTED_SPRITE Lnet/minecraft/resources/ResourceLocation;
+accessible field net/minecraft/client/gui/screens/recipebook/OverlayRecipeComponent FURNACE_OVERLAY_DISABLED_SPRITE Lnet/minecraft/resources/ResourceLocation;
+accessible field net/minecraft/client/gui/screens/recipebook/OverlayRecipeComponent FURNACE_OVERLAY_DISABLED_HIGHLIGHTED_SPRITE Lnet/minecraft/resources/ResourceLocation;
+
+accessible field net/minecraft/client/gui/screens/recipebook/OverlayRecipeComponent CRAFTING_OVERLAY_SPRITE Lnet/minecraft/resources/ResourceLocation;
+accessible field net/minecraft/client/gui/screens/recipebook/OverlayRecipeComponent CRAFTING_OVERLAY_HIGHLIGHTED_SPRITE Lnet/minecraft/resources/ResourceLocation;
+accessible field net/minecraft/client/gui/screens/recipebook/OverlayRecipeComponent CRAFTING_OVERLAY_DISABLED_SPRITE Lnet/minecraft/resources/ResourceLocation;
+accessible field net/minecraft/client/gui/screens/recipebook/OverlayRecipeComponent CRAFTING_OVERLAY_DISABLED_HIGHLIGHTED_SPRITE Lnet/minecraft/resources/ResourceLocation;
+
+# Methods
+accessible method net/minecraft/client/gui/screens/recipebook/OverlayRecipeComponent$OverlayRecipeButton calculateIngredientsPositions (Lnet/minecraft/world/item/crafting/RecipeHolder;)V
+
+# Classes
+accessible class net/minecraft/client/gui/screens/recipebook/OverlayRecipeComponent$OverlayRecipeButton
+accessible class net/minecraft/client/gui/screens/recipebook/OverlayRecipeComponent$OverlaySmeltingRecipeButton
+accessible class net/minecraft/client/gui/screens/recipebook/OverlayRecipeComponent$OverlayRecipeButton$Pos

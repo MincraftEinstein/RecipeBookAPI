@@ -7,6 +7,7 @@ import einstein.test_mod.TestRecipeCategories;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -26,7 +27,8 @@ public class TestRecipeSerializer implements RecipeSerializer<TestRecipe> {
                             : DataResult.success(NonNullList.of(Ingredient.EMPTY, ingredients1));
                 }, DataResult::success).forGetter(recipe -> recipe.ingredients),
                 BuiltInRegistries.ITEM.byNameCodec().xmap(ItemStack::new, ItemStack::getItem).fieldOf("result").forGetter(recipe -> recipe.result),
-                TestRecipeCategories.CODEC.fieldOf("category").orElse(TestRecipeCategories.CATEGORY).forGetter(recipe -> recipe.categories)
+                TestRecipeCategories.CODEC.fieldOf("category").orElse(TestRecipeCategories.CATEGORY).forGetter(recipe -> recipe.categories),
+                ExtraCodecs.strictOptionalField(Codec.STRING, "group", "").forGetter(recipe -> recipe.group)
         ).apply(instance, TestRecipe::new));
     }
 
@@ -34,6 +36,7 @@ public class TestRecipeSerializer implements RecipeSerializer<TestRecipe> {
     public TestRecipe fromNetwork(FriendlyByteBuf buf) {
         TestRecipeCategories category = buf.readEnum(TestRecipeCategories.class);
         ItemStack resultStack = buf.readItem();
+        String group = buf.readUtf();
         int ingredientCount = buf.readByte();
         NonNullList<Ingredient> ingredients = NonNullList.withSize(ingredientCount, Ingredient.EMPTY);
 
@@ -41,13 +44,14 @@ public class TestRecipeSerializer implements RecipeSerializer<TestRecipe> {
             ingredients.set(i, Ingredient.fromNetwork(buf));
         }
 
-        return new TestRecipe(ingredients, resultStack, category);
+        return new TestRecipe(ingredients, resultStack, category, group);
     }
 
     @Override
     public void toNetwork(FriendlyByteBuf buf, TestRecipe recipe) {
         buf.writeEnum(recipe.getCategory());
         buf.writeItem(recipe.result);
+        buf.writeUtf(recipe.getGroup());
         buf.writeByte(recipe.ingredients.size());
         recipe.ingredients.forEach(ingredient -> ingredient.toNetwork(buf));
     }

@@ -10,6 +10,7 @@ public class RecipeBookRegistry {
 
     public static final Map<String, RecipeBookRegistry> RECIPE_BOOK_REGISTRY = new HashMap<>();
     private final Map<Supplier<? extends RecipeType<?>>, RecipeBookTypeHolder<?, ?>> types = new HashMap<>();
+    private final Map<Supplier<? extends RecipeType<?>>, Supplier<? extends RecipeContextMenuOption>> recipeContextMenuOptions = new HashMap<>();
 
     public static RecipeBookRegistry create(String modId) {
         if (RECIPE_BOOK_REGISTRY.containsKey(modId)) {
@@ -19,6 +20,13 @@ public class RecipeBookRegistry {
         RecipeBookRegistry registry = new RecipeBookRegistry();
         RECIPE_BOOK_REGISTRY.put(modId, registry);
         return registry;
+    }
+
+    public <T extends RecipeContextMenuOption, V extends RecipeType<?>> void registerRecipeContextMenuOption(Supplier<V> recipeType, Supplier<T> contextMenuOption) {
+        if (recipeContextMenuOptions.containsKey(recipeType)) {
+            throw new IllegalArgumentException("Recipe context menu option already registered for recipe type");
+        }
+        recipeContextMenuOptions.put(recipeType, contextMenuOption);
     }
 
     public <T extends Enum<?> & RecipeBookCategoryEnum, V extends RecipeType<?>> RecipeBookTypeHolder<T, V> registerType(String name, Supplier<V> recipeType, T[] categories) {
@@ -42,6 +50,10 @@ public class RecipeBookRegistry {
                 throw new IllegalArgumentException("Too many icons for category: " + category.getName() + " - the max is 2");
             }
         }
+    }
+
+    public Map<Supplier<? extends RecipeType<?>>, Supplier<? extends RecipeContextMenuOption>> getRecipeContextMenuOptions() {
+        return recipeContextMenuOptions;
     }
 
     public Map<Supplier<? extends RecipeType<?>>, RecipeBookTypeHolder<?, ?>> getTypes() {

@@ -7,11 +7,11 @@ import einstein.recipebook_api.platform.Services;
 import einstein.test_mod.menus.TestMenu;
 import einstein.test_mod.recipes.TestRecipe;
 import einstein.test_mod.recipes.TestRecipeSerializer;
+import einstein.test_mod.screens.TestRecipeContextOption;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import org.lwjgl.glfw.GLFW;
@@ -21,6 +21,8 @@ import java.util.function.Supplier;
 public class TestMod {
 
     public static final String MOD_ID = "test_mod";
+
+    public static final ResourceLocation EMPTY = loc("empty");
 
     private static final RegistryHelper REGISTRY = Services.load(RegistryHelper.class);
 
@@ -40,6 +42,7 @@ public class TestMod {
     public static final KeyMapping OPEN_TEST_MENU = REGISTRY.registerKeyMapping(() -> new KeyMapping("open_test_menu", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_C, KeyMapping.CATEGORY_INVENTORY));
 
     public static void init() {
+        TEST_REGISTRY.registerRecipeContextMenuOption(TEST_RECIPE_TYPE, TestRecipeContextOption::new);
     }
 
     public static ResourceLocation loc(String path) {

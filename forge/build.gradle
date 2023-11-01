@@ -19,6 +19,8 @@ mixin {
 minecraft {
     mappings channel: 'official', version: minecraft_version
 
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+
     runs {
         client {
             workingDirectory project.file('run')
@@ -64,6 +66,8 @@ tasks.withType(JavaCompile).configureEach {
 
 processResources {
     from project(":common").sourceSets.main.resources
+
+    exclude("${mod_id}.accesswidener")
 
     inputs.property("version", version)
 

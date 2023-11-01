@@ -16,6 +16,6 @@ public class TestScreen extends SimpleRecipeBookScreen<TestMenu, TestRecipeBookC
 
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
-        guiGraphics.blit(TestMod.loc("empty"), leftPos, topPos, 0, 0, imageWidth, imageHeight);
+        guiGraphics.blit(TestMod.EMPTY, leftPos, topPos, 0, 0, imageWidth, imageHeight);
     }
 }
