@@ -27,21 +27,13 @@ public class ClientRecipeBookMixin {
 
         for (String modId : RecipeBookRegistry.RECIPE_BOOK_REGISTRY.keySet()) {
             RecipeBookRegistry registry = RecipeBookRegistry.RECIPE_BOOK_REGISTRY.get(modId);
-            final boolean[] hasEnded = {false};
 
-            registry.getTypes().forEach((typeSupplier, typeHolder) -> {
-                if (hasEnded[0]) {
+            for (Supplier<? extends RecipeType<?>> typeSupplier : registry.getTypes().keySet()) {
+                RecipeBookTypeHolder<?, ?> typeHolder = registry.getTypes().get(typeSupplier);
+                if (recipeType.equals(typeSupplier.get())) {
+                    cir.setReturnValue(RecipeBookAPI.getCategory(recipe, typeHolder));
                     return;
                 }
-
-                if (recipeType.equals(typeSupplier.get())) {
-                    hasEnded[0] = true;
-                    cir.setReturnValue(RecipeBookAPI.getCategory(recipe, typeHolder));
-                }
-            });
-
-            if (hasEnded[0]) {
-                return;
             }
         }
     }
