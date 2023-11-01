@@ -1,10 +1,8 @@
 package einstein.recipebook_api.mixin;
 
 import einstein.recipebook_api.RecipeBookAPI;
-import einstein.recipebook_api.api.CategorizedRecipe;
-import einstein.recipebook_api.api.RecipeBookCategoryHolder;
-import einstein.recipebook_api.api.RecipeBookRegistry;
-import einstein.recipebook_api.api.RecipeBookTypeHolder;
+import einstein.recipebook_api.impl.RecipeBookRegistryImpl;
+import einstein.recipebook_api.api.recipe.RecipeBookTypeHolder;
 import net.minecraft.client.ClientRecipeBook;
 import net.minecraft.client.RecipeBookCategories;
 import net.minecraft.world.item.crafting.Recipe;
@@ -25,8 +23,8 @@ public class ClientRecipeBookMixin {
         Recipe<?> recipe = holder.value();
         RecipeType<?> recipeType = recipe.getType();
 
-        for (String modId : RecipeBookRegistry.RECIPE_BOOK_REGISTRY.keySet()) {
-            RecipeBookRegistry registry = RecipeBookRegistry.RECIPE_BOOK_REGISTRY.get(modId);
+        for (String modId : RecipeBookRegistryImpl.RECIPE_BOOK_REGISTRY.keySet()) {
+            RecipeBookRegistryImpl registry = RecipeBookRegistryImpl.RECIPE_BOOK_REGISTRY.get(modId);
 
             for (Supplier<? extends RecipeType<?>> typeSupplier : registry.getTypes().keySet()) {
                 RecipeBookTypeHolder<?, ?> typeHolder = registry.getTypes().get(typeSupplier);

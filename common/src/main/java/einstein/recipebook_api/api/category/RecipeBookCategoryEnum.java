@@ -1,4 +1,4 @@
-package einstein.recipebook_api.api;
+package einstein.recipebook_api.api.category;
 
 import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;

@@ -1,7 +1,7 @@
 package einstein.recipebook_api.mixin;
 
-import einstein.recipebook_api.api.RecipeBookRegistry;
-import einstein.recipebook_api.api.RecipeContextMenuOption;
+import einstein.recipebook_api.impl.RecipeBookRegistryImpl;
+import einstein.recipebook_api.api.screen.RecipeContextMenuOption;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.screens.recipebook.OverlayRecipeComponent;
@@ -56,8 +56,8 @@ public abstract class OverlayRecipeButtonMixin extends AbstractWidget {
 
     @Unique
     private void recipeBookAPI$setView(RecipeHolder<?> recipeHolder) {
-        for (String modId : RecipeBookRegistry.RECIPE_BOOK_REGISTRY.keySet()) {
-            RecipeBookRegistry registry = RecipeBookRegistry.RECIPE_BOOK_REGISTRY.get(modId);
+        for (String modId : RecipeBookRegistryImpl.RECIPE_BOOK_REGISTRY.keySet()) {
+            RecipeBookRegistryImpl registry = RecipeBookRegistryImpl.RECIPE_BOOK_REGISTRY.get(modId);
             for (Supplier<? extends RecipeType<?>> recipeType : registry.getRecipeContextMenuOptions().keySet()) {
                 if (recipeType.get().equals(recipeHolder.value().getType())) {
                     recipeBookAPI$view = registry.getRecipeContextMenuOptions().get(recipeType).get();

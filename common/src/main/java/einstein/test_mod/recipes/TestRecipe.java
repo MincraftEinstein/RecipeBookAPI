@@ -1,6 +1,6 @@
 package einstein.test_mod.recipes;
 
-import einstein.recipebook_api.api.CategorizedRecipe;
+import einstein.recipebook_api.api.recipe.CategorizedRecipe;
 import einstein.test_mod.TestMod;
 import einstein.test_mod.TestRecipeCategories;
 import net.minecraft.core.NonNullList;

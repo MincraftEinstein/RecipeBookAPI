@@ -1,5 +1,7 @@
-package einstein.recipebook_api.api;
+package einstein.recipebook_api.api.recipe;
 
+import einstein.recipebook_api.api.category.RecipeBookCategoryEnum;
+import einstein.recipebook_api.api.category.RecipeBookCategoryHolder;
 import net.minecraft.client.RecipeBookCategories;
 import net.minecraft.world.inventory.RecipeBookType;
 import net.minecraft.world.item.ItemStack;

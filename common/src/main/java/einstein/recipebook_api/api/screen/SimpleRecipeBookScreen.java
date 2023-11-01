@@ -1,4 +1,4 @@
-package einstein.recipebook_api.api;
+package einstein.recipebook_api.api.screen;
 
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.ImageButton;

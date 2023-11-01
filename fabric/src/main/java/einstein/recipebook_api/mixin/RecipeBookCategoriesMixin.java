@@ -1,7 +1,7 @@
 package einstein.recipebook_api.mixin;
 
 import einstein.recipebook_api.RecipeBookAPI;
-import einstein.recipebook_api.api.RecipeBookRegistry;
+import einstein.recipebook_api.impl.RecipeBookRegistryImpl;
 import net.minecraft.client.RecipeBookCategories;
 import net.minecraft.world.inventory.RecipeBookType;
 import net.minecraft.world.item.ItemStack;
@@ -38,7 +38,7 @@ public class RecipeBookCategoriesMixin {
     private static void clInit(CallbackInfo ci) {
         Map<RecipeBookCategories, List<RecipeBookCategories>> aggregateCategories = new HashMap<>(getAggregateCategories());
 
-        RecipeBookRegistry.RECIPE_BOOK_REGISTRY.forEach((modId, registry) -> {
+        RecipeBookRegistryImpl.RECIPE_BOOK_REGISTRY.forEach((modId, registry) -> {
             registry.getTypes().forEach((recipeType, type) -> {
                 type.getAllCategoryHolders().forEach(categoryHolder -> {
                     RecipeBookCategories category = recipeBookAPI$register(modId, RecipeBookAPI.categoryName(categoryHolder), categoryHolder.getIconStacks());
@@ -67,7 +67,7 @@ public class RecipeBookCategoriesMixin {
 
     @Inject(method = "getCategories", at = @At("HEAD"), cancellable = true)
     private static void getCategories(RecipeBookType type, CallbackInfoReturnable<List<RecipeBookCategories>> cir) {
-        RecipeBookRegistry.RECIPE_BOOK_REGISTRY.forEach((modId, registry) -> {
+        RecipeBookRegistryImpl.RECIPE_BOOK_REGISTRY.forEach((modId, registry) -> {
             registry.getTypes().forEach((recipeType, typeHolder) -> {
                 if (type.equals(typeHolder.getType())) {
                     cir.setReturnValue(typeHolder.getAllCategories());

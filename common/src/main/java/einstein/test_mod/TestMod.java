@@ -2,7 +2,8 @@ package einstein.test_mod;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import einstein.recipebook_api.api.RecipeBookRegistry;
-import einstein.recipebook_api.api.RecipeBookTypeHolder;
+import einstein.recipebook_api.impl.RecipeBookRegistryImpl;
+import einstein.recipebook_api.api.recipe.RecipeBookTypeHolder;
 import einstein.recipebook_api.platform.Services;
 import einstein.test_mod.menus.TestMenu;
 import einstein.test_mod.recipes.TestRecipe;
@@ -36,7 +37,7 @@ public class TestMod {
     });
     public static final Supplier<MenuType<TestMenu>> TEST_MENU = REGISTRY.register("test_menu", BuiltInRegistries.MENU, () -> REGISTRY.createMenuType((id, inventory, buf) -> new TestMenu(id, inventory)));
 
-    public static final RecipeBookRegistry TEST_REGISTRY = RecipeBookRegistry.create(MOD_ID);
+    public static final RecipeBookRegistryImpl TEST_REGISTRY = RecipeBookRegistry.create(MOD_ID);
     public static final RecipeBookTypeHolder<?, ?> TEST_TYPE = TEST_REGISTRY.registerType("test_type", TEST_RECIPE_TYPE, TestRecipeCategories.values());
 
     public static final KeyMapping OPEN_TEST_MENU = REGISTRY.registerKeyMapping(() -> new KeyMapping("open_test_menu", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_C, KeyMapping.CATEGORY_INVENTORY));

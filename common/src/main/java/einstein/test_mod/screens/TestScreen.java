@@ -1,10 +1,9 @@
 package einstein.test_mod.screens;
 
-import einstein.recipebook_api.api.SimpleRecipeBookScreen;
+import einstein.recipebook_api.api.screen.SimpleRecipeBookScreen;
 import einstein.test_mod.TestMod;
 import einstein.test_mod.menus.TestMenu;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.screens.recipebook.RecipeBookComponent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 

@@ -1,4 +1,4 @@
-package einstein.recipebook_api.api;
+package einstein.recipebook_api.api.screen;
 
 import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.gui.screens.recipebook.OverlayRecipeComponent;

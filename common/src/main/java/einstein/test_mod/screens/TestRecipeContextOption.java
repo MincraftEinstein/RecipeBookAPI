@@ -1,6 +1,6 @@
 package einstein.test_mod.screens;
 
-import einstein.recipebook_api.api.RecipeContextMenuOption;
+import einstein.recipebook_api.api.screen.RecipeContextMenuOption;
 import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;

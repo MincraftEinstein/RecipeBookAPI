@@ -1,7 +1,7 @@
 package einstein.test_mod;
 
 import com.mojang.serialization.Codec;
-import einstein.recipebook_api.api.RecipeBookCategoryEnum;
+import einstein.recipebook_api.api.category.RecipeBookCategoryEnum;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 
