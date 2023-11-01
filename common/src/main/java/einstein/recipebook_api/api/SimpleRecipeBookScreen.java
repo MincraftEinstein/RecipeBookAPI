@@ -1,6 +1,5 @@
 package einstein.recipebook_api.api;
 
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.components.WidgetSprites;
@@ -12,6 +11,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.inventory.RecipeBookMenu;
 import net.minecraft.world.inventory.Slot;
+import org.joml.Vector2i;
 
 public abstract class SimpleRecipeBookScreen<T extends RecipeBookMenu<?>, V extends RecipeBookComponent> extends AbstractContainerScreen<T> implements RecipeUpdateListener {
 
@@ -29,11 +29,11 @@ public abstract class SimpleRecipeBookScreen<T extends RecipeBookMenu<?>, V exte
         widthTooNarrow = width < 379;
         recipeBookComponent.init(width, height, minecraft, widthTooNarrow, menu);
         leftPos = recipeBookComponent.updateScreenPosition(width, imageWidth);
-        addRenderableWidget(new ImageButton(recipeButtonPos().getFirst(), recipeButtonPos().getSecond(),
-                recipeButtonSize().getFirst(), recipeButtonSize().getSecond(), recipeButtonSprites(), button -> {
+        addRenderableWidget(new ImageButton(recipeButtonPos().x(), recipeButtonPos().y(),
+                recipeButtonSize().x(), recipeButtonSize().y(), recipeButtonSprites(), button -> {
             recipeBookComponent.toggleVisibility();
             leftPos = recipeBookComponent.updateScreenPosition(width, imageWidth);
-            button.setPosition(recipeButtonPos().getFirst(), recipeButtonPos().getSecond());
+            button.setPosition(recipeButtonPos().x(), recipeButtonPos().y());
         }));
     }
 
@@ -99,12 +99,12 @@ public abstract class SimpleRecipeBookScreen<T extends RecipeBookMenu<?>, V exte
         return recipeBookComponent;
     }
 
-    protected Pair<Integer, Integer> recipeButtonPos() {
-        return Pair.of(leftPos + 20, height / 2 - 49);
+    protected Vector2i recipeButtonPos() {
+        return new Vector2i(leftPos + 20, height / 2 - 49);
     }
 
-    protected Pair<Integer, Integer> recipeButtonSize() {
-        return Pair.of(20, 18);
+    protected Vector2i recipeButtonSize() {
+        return new Vector2i(20, 18);
     }
 
     protected WidgetSprites recipeButtonSprites() {
