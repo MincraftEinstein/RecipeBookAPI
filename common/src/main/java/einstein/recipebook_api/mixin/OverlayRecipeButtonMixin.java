@@ -1,7 +1,7 @@
 package einstein.recipebook_api.mixin;
 
-import einstein.recipebook_api.impl.RecipeBookRegistryImpl;
 import einstein.recipebook_api.api.screen.RecipeContextMenuOption;
+import einstein.recipebook_api.impl.RecipeBookRegistryImpl;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.screens.recipebook.OverlayRecipeComponent;
@@ -31,7 +31,7 @@ public abstract class OverlayRecipeButtonMixin extends AbstractWidget {
     protected List<OverlayRecipeComponent.OverlayRecipeButton.Pos> ingredientPos;
 
     @Unique
-    private RecipeContextMenuOption recipeBookAPI$view;
+    private RecipeContextMenuOption recipeBookAPI$menuOption;
 
     @Unique
     @SuppressWarnings("all")
@@ -44,9 +44,9 @@ public abstract class OverlayRecipeButtonMixin extends AbstractWidget {
     @Redirect(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/recipebook/OverlayRecipeComponent$OverlayRecipeButton;calculateIngredientsPositions(Lnet/minecraft/world/item/crafting/RecipeHolder;)V"))
     private void setup(OverlayRecipeComponent.OverlayRecipeButton recipeButton, RecipeHolder<?> recipeHolder) {
         recipeBookAPI$setView(recipeHolder);
-        if (recipeBookAPI$view != null) {
-            recipeBookAPI$view.calculateIngredientsPositions(recipeHolder);
-            for (RecipeContextMenuOption.Pos pos : recipeBookAPI$view.getIngredientPositions()) {
+        if (recipeBookAPI$menuOption != null) {
+            recipeBookAPI$menuOption.calculateIngredientsPositions(recipeHolder);
+            for (RecipeContextMenuOption.Pos pos : recipeBookAPI$menuOption.getIngredientPositions()) {
                 ingredientPos.add(recipeBookAPI$me.new Pos(pos.x(), pos.y(), pos.ingredient().getItems()));
             }
             return;
@@ -60,7 +60,7 @@ public abstract class OverlayRecipeButtonMixin extends AbstractWidget {
             RecipeBookRegistryImpl registry = RecipeBookRegistryImpl.RECIPE_BOOK_REGISTRY.get(modId);
             for (Supplier<? extends RecipeType<?>> recipeType : registry.getRecipeContextMenuOptions().keySet()) {
                 if (recipeType.get().equals(recipeHolder.value().getType())) {
-                    recipeBookAPI$view = registry.getRecipeContextMenuOptions().get(recipeType).get();
+                    recipeBookAPI$menuOption = registry.getRecipeContextMenuOptions().get(recipeType).get();
                     return;
                 }
             }
@@ -69,12 +69,12 @@ public abstract class OverlayRecipeButtonMixin extends AbstractWidget {
 
     @Redirect(method = "renderWidget", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lnet/minecraft/resources/ResourceLocation;IIII)V"))
     private void renderSprite(GuiGraphics guiGraphics, ResourceLocation sprite, int x, int y, int height, int width) {
-        if (recipeBookAPI$view != null) {
+        if (recipeBookAPI$menuOption != null) {
             if (isCraftable) {
-                sprite = isHoveredOrFocused() ? recipeBookAPI$view.getSprites().enabledFocused() : recipeBookAPI$view.getSprites().enabled();
+                sprite = isHoveredOrFocused() ? recipeBookAPI$menuOption.getSprites().enabledFocused() : recipeBookAPI$menuOption.getSprites().enabled();
             }
             else {
-                sprite = isHoveredOrFocused() ? recipeBookAPI$view.getSprites().disabledFocused() : recipeBookAPI$view.getSprites().disabled();
+                sprite = isHoveredOrFocused() ? recipeBookAPI$menuOption.getSprites().disabledFocused() : recipeBookAPI$menuOption.getSprites().disabled();
             }
         }
         guiGraphics.blitSprite(sprite, x, y, height, width);
