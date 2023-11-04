@@ -20,14 +20,16 @@ public class RecipeBookAPIForge {
         }
     }
 
-    public static void registerRecipeBooks(IEventBus modEventBus) {
+    public static void registerRecipeBooks(String modId, IEventBus modEventBus) {
         modEventBus.addListener((RegisterRecipeBookCategoriesEvent event) -> {
-            RecipeBookRegistryImpl.RECIPE_BOOK_REGISTRY.forEach((modId, registry) -> {
-                registry.getTypes().forEach((recipeType, typeHolder) -> {
-                    event.registerRecipeCategoryFinder(recipeType.get(), recipe -> RecipeBookAPI.getCategory(recipe, typeHolder));
-                    event.registerBookCategories(typeHolder.getType(), typeHolder.getAllCategories());
-                    event.registerAggregateCategory(typeHolder.getSearchCategory().getCategory(), typeHolder.getCategories());
-                });
+            RecipeBookRegistryImpl.RECIPE_BOOK_REGISTRY.forEach((registeredModId, registry) -> {
+                if (modId.equals(registeredModId)) {
+                    registry.getTypes().forEach((recipeType, typeHolder) -> {
+                        event.registerRecipeCategoryFinder(recipeType.get(), recipe -> RecipeBookAPI.getCategory(recipe, typeHolder));
+                        event.registerBookCategories(typeHolder.getType(), typeHolder.getAllCategories());
+                        event.registerAggregateCategory(typeHolder.getSearchCategory().getCategory(), typeHolder.getCategories());
+                    });
+                }
             });
         });
     }

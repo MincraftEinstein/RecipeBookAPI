@@ -25,7 +25,7 @@ public class DevelopmentExtrasForge {
 
     public static void loadDevelopmentExtrasEvents(IEventBus modEventBus) {
         DevelopmentExtras.init();
-        RecipeBookAPIForge.registerRecipeBooks(modEventBus);
+        RecipeBookAPIForge.registerRecipeBooks(RecipeBookAPI.MOD_ID, modEventBus);
         ForgeRegistryHelper.REGISTRIES.forEach((registry, deferredRegister) ->
                 deferredRegister.register(modEventBus));
         modEventBus.addListener((RegisterKeyMappingsEvent event) ->
