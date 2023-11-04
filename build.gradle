@@ -10,6 +10,8 @@ subprojects {
     java.toolchain.languageVersion = JavaLanguageVersion.of(17)
     
     jar {
+        exclude('data/recipebook_api/')
+
         manifest {
             attributes([
                 'Specification-Title'     : mod_name,
