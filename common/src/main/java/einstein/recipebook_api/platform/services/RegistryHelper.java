@@ -1,4 +1,4 @@
-package einstein.test_mod;
+package einstein.recipebook_api.platform.services;
 
 import net.minecraft.client.KeyMapping;
 import net.minecraft.core.Registry;

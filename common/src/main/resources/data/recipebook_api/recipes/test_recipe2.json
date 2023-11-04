@@ -1,5 +1,5 @@
 {
-  "type": "test_mod:test_recipe_serializer",
+  "type": "recipebook_api:test_recipe_serializer",
   "category": "test_category2",
   "ingredients": [
     {

@@ -1,5 +1,7 @@
-package einstein.test_mod;
+package einstein.recipebook_api.platform;
 
+import einstein.recipebook_api.RecipeBookAPI;
+import einstein.recipebook_api.platform.services.RegistryHelper;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
 import net.minecraft.client.KeyMapping;
@@ -13,7 +15,7 @@ public class FabricRegistryHelper implements RegistryHelper {
 
     @Override
     public <T> Supplier<T> register(String name, Registry<?> registry, Supplier<T> supplier) {
-        T t = Registry.register((Registry<? super T>) registry, TestMod.loc(name), supplier.get());
+        T t = Registry.register((Registry<? super T>) registry, RecipeBookAPI.loc(name), supplier.get());
         return () -> t;
     }
 

@@ -1,8 +1,8 @@
-package einstein.test_mod.recipes;
+package einstein.recipebook_api.dev_extras.recipes;
 
 import einstein.recipebook_api.api.recipe.CategorizedRecipe;
-import einstein.test_mod.TestMod;
-import einstein.test_mod.TestRecipeCategories;
+import einstein.recipebook_api.dev_extras.DevelopmentExtras;
+import einstein.recipebook_api.dev_extras.TestRecipeCategories;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.world.Container;
@@ -59,12 +59,12 @@ public class TestRecipe implements Recipe<Container>, CategorizedRecipe<TestReci
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return TestMod.TEST_RECIPE_SERIALIZER.get();
+        return DevelopmentExtras.TEST_RECIPE_SERIALIZER.get();
     }
 
     @Override
     public RecipeType<?> getType() {
-        return TestMod.TEST_RECIPE_TYPE.get();
+        return DevelopmentExtras.TEST_RECIPE_TYPE.get();
     }
 
     public TestRecipeCategories getCategory() {

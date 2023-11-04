@@ -1,9 +1,8 @@
-package einstein.test_mod;
+package einstein.recipebook_api.dev_extras;
 
-import einstein.test_mod.menus.TestMenu;
-import einstein.test_mod.screens.TestScreen;
-import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.api.ModInitializer;
+import einstein.recipebook_api.RecipeBookAPI;
+import einstein.recipebook_api.dev_extras.menus.TestMenu;
+import einstein.recipebook_api.dev_extras.screens.TestScreen;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
@@ -19,17 +18,14 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import org.jetbrains.annotations.Nullable;
 
-import static einstein.test_mod.TestMod.loc;
+public class DevelopmentExtrasFabric {
 
-public class TestModFabric implements ModInitializer, ClientModInitializer {
+    private static final ResourceLocation OPEN_MENU_KEY_PRESSED = RecipeBookAPI.loc("open_menu_key_pressed");
 
-    private final ResourceLocation OPEN_MENU_KEY_PRESSED = loc("open_menu_key_pressed");
-
-    @Override
-    public void onInitialize() {
-        TestMod.init();
+    public static void loadDevelopmentExtras() {
+        DevelopmentExtras.init();
         ClientTickEvents.END_CLIENT_TICK.register(minecraft -> {
-            if (minecraft.level != null && TestMod.OPEN_TEST_MENU.consumeClick()) {
+            if (minecraft.level != null && DevelopmentExtras.OPEN_TEST_MENU.consumeClick()) {
                 ClientPlayNetworking.send(OPEN_MENU_KEY_PRESSED, PacketByteBufs.create());
             }
         });
@@ -55,8 +51,7 @@ public class TestModFabric implements ModInitializer, ClientModInitializer {
         });
     }
 
-    @Override
-    public void onInitializeClient() {
-        MenuScreens.register(TestMod.TEST_MENU.get(), TestScreen::new);
+    public static void loadClientDevelopmentExtras() {
+        MenuScreens.register(DevelopmentExtras.TEST_MENU.get(), TestScreen::new);
     }
 }

@@ -1,4 +1,4 @@
-package einstein.test_mod.screens;
+package einstein.recipebook_api.dev_extras.screens;
 
 import net.minecraft.client.gui.screens.recipebook.RecipeBookComponent;
 import net.minecraft.core.NonNullList;

@@ -1,12 +1,13 @@
-package einstein.test_mod;
+package einstein.recipebook_api.platform;
 
+import einstein.recipebook_api.RecipeBookAPI;
+import einstein.recipebook_api.platform.services.RegistryHelper;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.core.Registry;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.RegistryObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,7 +32,7 @@ public class ForgeRegistryHelper implements RegistryHelper {
             return (DeferredRegister<T>) REGISTRIES.get(registry);
         }
 
-        DeferredRegister<T> deferredRegister = DeferredRegister.create(registry.key(), TestMod.MOD_ID);
+        DeferredRegister<T> deferredRegister = DeferredRegister.create(registry.key(), RecipeBookAPI.MOD_ID);
         REGISTRIES.put(registry, deferredRegister);
         return deferredRegister;
     }

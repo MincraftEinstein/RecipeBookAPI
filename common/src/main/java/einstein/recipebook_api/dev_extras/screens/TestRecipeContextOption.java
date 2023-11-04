@@ -1,4 +1,4 @@
-package einstein.test_mod.screens;
+package einstein.recipebook_api.dev_extras.screens;
 
 import einstein.recipebook_api.api.screen.RecipeContextMenuOption;
 import net.minecraft.client.gui.components.WidgetSprites;
@@ -8,7 +8,7 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import java.util.ArrayList;
 import java.util.List;
 
-import static einstein.test_mod.TestMod.EMPTY;
+import static einstein.recipebook_api.dev_extras.DevelopmentExtras.EMPTY;
 
 public class TestRecipeContextOption extends RecipeContextMenuOption {
 

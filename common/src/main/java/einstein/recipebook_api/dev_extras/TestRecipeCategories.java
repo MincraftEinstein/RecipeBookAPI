@@ -1,4 +1,4 @@
-package einstein.test_mod;
+package einstein.recipebook_api.dev_extras;
 
 import com.mojang.serialization.Codec;
 import einstein.recipebook_api.api.category.RecipeBookCategoryEnum;

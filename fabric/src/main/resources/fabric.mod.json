@@ -17,11 +17,10 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "einstein.recipebook_api.RecipeBookAPIFabric",
-      "einstein.test_mod.TestModFabric"
+      "einstein.recipebook_api.RecipeBookAPIFabric"
     ],
     "client": [
-      "einstein.test_mod.TestModFabric"
+      "einstein.recipebook_api.RecipeBookAPIFabric"
     ]
   },
   "mixins": [
