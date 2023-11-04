@@ -5,11 +5,13 @@ import einstein.recipebook_api.api.RecipeBookRegistry;
 import einstein.recipebook_api.api.recipe.RecipeBookTypeHolder;
 import einstein.recipebook_api.api.screen.RecipeContextMenuOption;
 import net.minecraft.world.item.crafting.RecipeType;
+import org.jetbrains.annotations.ApiStatus;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
+@ApiStatus.Internal
 public class RecipeBookRegistryImpl implements RecipeBookRegistry {
 
     public static final Map<String, RecipeBookRegistryImpl> RECIPE_BOOK_REGISTRY = new HashMap<>();
