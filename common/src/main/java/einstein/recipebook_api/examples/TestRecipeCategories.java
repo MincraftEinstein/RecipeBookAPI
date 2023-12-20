@@ -1,4 +1,4 @@
-package einstein.recipebook_api.dev_extras;
+package einstein.recipebook_api.examples;
 
 import com.mojang.serialization.Codec;
 import einstein.recipebook_api.api.category.RecipeBookCategoryEnum;

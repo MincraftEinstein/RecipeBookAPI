@@ -1,4 +1,4 @@
-package einstein.recipebook_api.dev_extras.screens;
+package einstein.recipebook_api.examples.screens;
 
 import net.minecraft.client.gui.screens.recipebook.RecipeBookComponent;
 import net.minecraft.core.NonNullList;
@@ -8,7 +8,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
-import javax.annotation.Nullable;
 import java.util.Iterator;
 import java.util.List;
 

@@ -1,9 +1,9 @@
-package einstein.recipebook_api.dev_extras.recipes;
+package einstein.recipebook_api.examples.recipes;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import einstein.recipebook_api.dev_extras.TestRecipeCategories;
+import einstein.recipebook_api.examples.TestRecipeCategories;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;

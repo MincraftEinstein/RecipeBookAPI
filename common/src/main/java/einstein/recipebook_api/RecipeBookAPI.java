@@ -1,7 +1,7 @@
 package einstein.recipebook_api;
 
-import einstein.recipebook_api.api.recipe.CategorizedRecipe;
 import einstein.recipebook_api.api.category.RecipeBookCategoryHolder;
+import einstein.recipebook_api.api.recipe.CategorizedRecipe;
 import einstein.recipebook_api.api.recipe.RecipeBookTypeHolder;
 import net.minecraft.client.RecipeBookCategories;
 import net.minecraft.resources.ResourceLocation;

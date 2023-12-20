@@ -1,6 +1,6 @@
-package einstein.recipebook_api.dev_extras.networking;
+package einstein.recipebook_api.examples.networking;
 
-import einstein.recipebook_api.dev_extras.menus.TestMenu;
+import einstein.recipebook_api.examples.menus.TestMenu;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.MenuProvider;

@@ -1,10 +1,10 @@
-package einstein.recipebook_api.dev_extras;
+package einstein.recipebook_api.examples;
 
 import einstein.recipebook_api.RecipeBookAPI;
 import einstein.recipebook_api.RecipeBookAPIForge;
-import einstein.recipebook_api.dev_extras.networking.OpenMenuKeyPressedC2SPacket;
+import einstein.recipebook_api.examples.networking.OpenMenuKeyPressedC2SPacket;
+import einstein.recipebook_api.examples.screens.TestScreen;
 import einstein.recipebook_api.platform.ForgeRegistryHelper;
-import einstein.recipebook_api.dev_extras.screens.TestScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraftforge.client.event.InputEvent;
@@ -15,7 +15,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.network.*;
 
-public class DevelopmentExtrasForge {
+public class ModExamplesForge {
 
     public static final SimpleChannel CHANNEL = ChannelBuilder.named(RecipeBookAPI.loc("main"))
             .networkProtocolVersion(1)
@@ -23,8 +23,8 @@ public class DevelopmentExtrasForge {
             .serverAcceptedVersions(Channel.VersionTest.exact(1))
             .simpleChannel();
 
-    public static void loadDevelopmentExtrasEvents(IEventBus modEventBus) {
-        DevelopmentExtras.init();
+    public static void loadExamples(IEventBus modEventBus) {
+        ModExamples.init();
         RecipeBookAPIForge.registerRecipeBooks(RecipeBookAPI.MOD_ID, modEventBus);
         ForgeRegistryHelper.REGISTRIES.forEach((registry, deferredRegister) ->
                 deferredRegister.register(modEventBus));
@@ -41,11 +41,11 @@ public class DevelopmentExtrasForge {
                     .add();
         });
         modEventBus.addListener((FMLClientSetupEvent event) -> {
-            MenuScreens.register(DevelopmentExtras.TEST_MENU.get(), TestScreen::new);
+            MenuScreens.register(ModExamples.TEST_MENU.get(), TestScreen::new);
         });
         MinecraftForge.EVENT_BUS.addListener((InputEvent.Key event) -> {
             Minecraft minecraft = Minecraft.getInstance();
-            if (minecraft.level != null && event.getKey() == DevelopmentExtras.OPEN_TEST_MENU.getKey().getValue()) {
+            if (minecraft.level != null && event.getKey() == ModExamples.OPEN_TEST_MENU.getKey().getValue()) {
                 CHANNEL.send(new OpenMenuKeyPressedC2SPacket(), PacketDistributor.SERVER.noArg());
             }
         });

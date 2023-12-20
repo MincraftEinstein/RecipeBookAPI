@@ -1,8 +1,8 @@
-package einstein.recipebook_api.dev_extras;
+package einstein.recipebook_api.examples;
 
 import einstein.recipebook_api.RecipeBookAPI;
-import einstein.recipebook_api.dev_extras.menus.TestMenu;
-import einstein.recipebook_api.dev_extras.screens.TestScreen;
+import einstein.recipebook_api.examples.menus.TestMenu;
+import einstein.recipebook_api.examples.screens.TestScreen;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
@@ -18,14 +18,14 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import org.jetbrains.annotations.Nullable;
 
-public class DevelopmentExtrasFabric {
+public class ModExamplesFabric {
 
     private static final ResourceLocation OPEN_MENU_KEY_PRESSED = RecipeBookAPI.loc("open_menu_key_pressed");
 
-    public static void loadDevelopmentExtras() {
-        DevelopmentExtras.init();
+    public static void loadExamples() {
+        ModExamples.init();
         ClientTickEvents.END_CLIENT_TICK.register(minecraft -> {
-            if (minecraft.level != null && DevelopmentExtras.OPEN_TEST_MENU.consumeClick()) {
+            if (minecraft.level != null && ModExamples.OPEN_TEST_MENU.consumeClick()) {
                 ClientPlayNetworking.send(OPEN_MENU_KEY_PRESSED, PacketByteBufs.create());
             }
         });
@@ -51,7 +51,7 @@ public class DevelopmentExtrasFabric {
         });
     }
 
-    public static void loadClientDevelopmentExtras() {
-        MenuScreens.register(DevelopmentExtras.TEST_MENU.get(), TestScreen::new);
+    public static void loadExamplesClient() {
+        MenuScreens.register(ModExamples.TEST_MENU.get(), TestScreen::new);
     }
 }

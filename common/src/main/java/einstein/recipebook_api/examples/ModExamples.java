@@ -1,13 +1,13 @@
-package einstein.recipebook_api.dev_extras;
+package einstein.recipebook_api.examples;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import einstein.recipebook_api.RecipeBookAPI;
 import einstein.recipebook_api.api.RecipeBookRegistry;
 import einstein.recipebook_api.api.recipe.RecipeBookTypeHolder;
-import einstein.recipebook_api.dev_extras.menus.TestMenu;
-import einstein.recipebook_api.dev_extras.recipes.TestRecipe;
-import einstein.recipebook_api.dev_extras.recipes.TestRecipeSerializer;
-import einstein.recipebook_api.dev_extras.screens.TestRecipeContextOption;
+import einstein.recipebook_api.examples.menus.TestMenu;
+import einstein.recipebook_api.examples.recipes.TestRecipe;
+import einstein.recipebook_api.examples.recipes.TestRecipeSerializer;
+import einstein.recipebook_api.examples.screens.TestRecipeContextOption;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -20,7 +20,7 @@ import java.util.function.Supplier;
 
 import static einstein.recipebook_api.platform.Services.REGISTRY;
 
-public class DevelopmentExtras {
+public class ModExamples {
 
     public static final ResourceLocation EMPTY = RecipeBookAPI.loc("empty");
 

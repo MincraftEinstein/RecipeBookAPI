@@ -1,6 +1,6 @@
 package einstein.recipebook_api;
 
-import einstein.recipebook_api.dev_extras.DevelopmentExtrasForge;
+import einstein.recipebook_api.examples.ModExamplesForge;
 import einstein.recipebook_api.impl.RecipeBookRegistryImpl;
 import einstein.recipebook_api.platform.Services;
 import net.minecraft.client.RecipeBookCategories;
@@ -20,7 +20,7 @@ public class RecipeBookAPIForge {
         modEventBus.addListener(this::registerCustomRecipeBooks);
 
         if (Services.PLATFORM.isDevelopmentEnvironment()) {
-            DevelopmentExtrasForge.loadDevelopmentExtrasEvents(modEventBus);
+            ModExamplesForge.loadExamples(modEventBus);
         }
     }
 

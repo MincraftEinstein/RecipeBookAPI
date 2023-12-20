@@ -1,7 +1,7 @@
-package einstein.recipebook_api.dev_extras.menus;
+package einstein.recipebook_api.examples.menus;
 
-import einstein.recipebook_api.dev_extras.DevelopmentExtras;
-import einstein.recipebook_api.dev_extras.recipes.TestRecipe;
+import einstein.recipebook_api.examples.ModExamples;
+import einstein.recipebook_api.examples.recipes.TestRecipe;
 import net.minecraft.network.protocol.game.ClientboundContainerSetSlotPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
@@ -32,7 +32,7 @@ public class TestMenu extends RecipeBookMenu<Container> {
     private final ResultContainer resultContainer = new ResultContainer();
 
     public TestMenu(int id, Inventory inventory) {
-        super(DevelopmentExtras.TEST_MENU.get(), id);
+        super(ModExamples.TEST_MENU.get(), id);
         player = inventory.player;
         level = player.level();
 
@@ -70,7 +70,7 @@ public class TestMenu extends RecipeBookMenu<Container> {
         if (!level.isClientSide()) {
             ServerPlayer serverPlayer = (ServerPlayer) player;
             ItemStack resultStack = ItemStack.EMPTY;
-            Optional<RecipeHolder<TestRecipe>> optional = level.getServer().getRecipeManager().getRecipeFor(DevelopmentExtras.TEST_RECIPE_TYPE.get(), container, level);
+            Optional<RecipeHolder<TestRecipe>> optional = level.getServer().getRecipeManager().getRecipeFor(ModExamples.TEST_RECIPE_TYPE.get(), container, level);
             if (optional.isPresent()) {
                 RecipeHolder<TestRecipe> holder = optional.get();
                 TestRecipe recipe = holder.value();
@@ -129,7 +129,7 @@ public class TestMenu extends RecipeBookMenu<Container> {
 
     @Override
     public RecipeBookType getRecipeBookType() {
-        return DevelopmentExtras.TEST_TYPE.getType();
+        return ModExamples.TEST_TYPE.getType();
     }
 
     @Override
