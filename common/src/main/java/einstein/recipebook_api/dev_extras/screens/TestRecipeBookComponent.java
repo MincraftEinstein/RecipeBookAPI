@@ -15,14 +15,6 @@ import java.util.List;
 public class TestRecipeBookComponent extends RecipeBookComponent {
 
     @Override
-    public void slotClicked(@Nullable Slot slot) {
-        super.slotClicked(slot);
-        if (slot != null && slot.index < menu.getSize()) {
-            ghostRecipe.clear();
-        }
-    }
-
-    @Override
     public void setupGhostRecipe(RecipeHolder<?> holder, List<Slot> slots) {
         Recipe<?> recipe = holder.value();
         ItemStack resultStack = recipe.getResultItem(minecraft.level.registryAccess());
