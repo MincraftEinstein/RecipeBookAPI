@@ -2,15 +2,15 @@ package einstein.recipebook_api.examples.screens;
 
 import einstein.recipebook_api.api.screen.SimpleRecipeBookScreen;
 import einstein.recipebook_api.examples.ModExamples;
-import einstein.recipebook_api.examples.menus.TestMenu;
+import einstein.recipebook_api.examples.menus.ExampleMenu;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 
-public class TestScreen extends SimpleRecipeBookScreen<TestMenu, TestRecipeBookComponent> {
+public class ExampleScreen extends SimpleRecipeBookScreen<ExampleMenu, ExampleRecipeBookComponent> {
 
-    public TestScreen(TestMenu menu, Inventory inventory, Component title) {
-        super(menu, inventory, title, new TestRecipeBookComponent());
+    public ExampleScreen(ExampleMenu menu, Inventory inventory, Component title) {
+        super(menu, inventory, title, new ExampleRecipeBookComponent());
     }
 
     @Override

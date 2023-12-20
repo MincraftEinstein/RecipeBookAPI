@@ -1,8 +1,8 @@
 package einstein.recipebook_api.examples;
 
 import einstein.recipebook_api.RecipeBookAPI;
-import einstein.recipebook_api.examples.menus.TestMenu;
-import einstein.recipebook_api.examples.screens.TestScreen;
+import einstein.recipebook_api.examples.menus.ExampleMenu;
+import einstein.recipebook_api.examples.screens.ExampleScreen;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
@@ -20,17 +20,17 @@ import org.jetbrains.annotations.Nullable;
 
 public class ModExamplesFabric {
 
-    private static final ResourceLocation OPEN_MENU_KEY_PRESSED = RecipeBookAPI.loc("open_menu_key_pressed");
+    private static final ResourceLocation OPEN_EXAMPLE_MENU_KEY_PRESSED = RecipeBookAPI.loc("open_example_menu_key_pressed");
 
     public static void loadExamples() {
         ModExamples.init();
         ClientTickEvents.END_CLIENT_TICK.register(minecraft -> {
-            if (minecraft.level != null && ModExamples.OPEN_TEST_MENU.consumeClick()) {
-                ClientPlayNetworking.send(OPEN_MENU_KEY_PRESSED, PacketByteBufs.create());
+            if (minecraft.level != null && ModExamples.OPEN_EXAMPLE_MENU.consumeClick()) {
+                ClientPlayNetworking.send(OPEN_EXAMPLE_MENU_KEY_PRESSED, PacketByteBufs.create());
             }
         });
 
-        ServerPlayNetworking.registerGlobalReceiver(OPEN_MENU_KEY_PRESSED, (server, player, handler, buf, responseSender) -> {
+        ServerPlayNetworking.registerGlobalReceiver(OPEN_EXAMPLE_MENU_KEY_PRESSED, (server, player, handler, buf, responseSender) -> {
             player.openMenu(new ExtendedScreenHandlerFactory() {
 
                 @Override
@@ -39,19 +39,19 @@ public class ModExamplesFabric {
 
                 @Override
                 public Component getDisplayName() {
-                    return Component.literal("Test Menu");
+                    return Component.literal("Example Menu");
                 }
 
                 @Nullable
                 @Override
                 public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-                    return new TestMenu(id, inventory);
+                    return new ExampleMenu(id, inventory);
                 }
             });
         });
     }
 
     public static void loadExamplesClient() {
-        MenuScreens.register(ModExamples.TEST_MENU.get(), TestScreen::new);
+        MenuScreens.register(ModExamples.EXAMPLE_MENU.get(), ExampleScreen::new);
     }
 }

@@ -2,8 +2,8 @@ package einstein.recipebook_api.examples;
 
 import einstein.recipebook_api.RecipeBookAPI;
 import einstein.recipebook_api.RecipeBookAPIForge;
-import einstein.recipebook_api.examples.networking.OpenMenuKeyPressedC2SPacket;
-import einstein.recipebook_api.examples.screens.TestScreen;
+import einstein.recipebook_api.examples.networking.OpenExampleMenuKeyPressedC2SPacket;
+import einstein.recipebook_api.examples.screens.ExampleScreen;
 import einstein.recipebook_api.platform.ForgeRegistryHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
@@ -17,7 +17,7 @@ import net.minecraftforge.network.*;
 
 public class ModExamplesForge {
 
-    public static final SimpleChannel CHANNEL = ChannelBuilder.named(RecipeBookAPI.loc("main"))
+    public static final SimpleChannel CHANNEL = ChannelBuilder.named(RecipeBookAPI.loc("examples_main"))
             .networkProtocolVersion(1)
             .clientAcceptedVersions(Channel.VersionTest.exact(1))
             .serverAcceptedVersions(Channel.VersionTest.exact(1))
@@ -34,19 +34,19 @@ public class ModExamplesForge {
                 )
         );
         modEventBus.addListener((FMLCommonSetupEvent event) -> {
-            CHANNEL.messageBuilder(OpenMenuKeyPressedC2SPacket.class, NetworkDirection.PLAY_TO_SERVER)
-                    .decoder(OpenMenuKeyPressedC2SPacket::decode)
-                    .encoder(OpenMenuKeyPressedC2SPacket::encode)
-                    .consumerMainThread(OpenMenuKeyPressedC2SPacket::handle)
+            CHANNEL.messageBuilder(OpenExampleMenuKeyPressedC2SPacket.class, NetworkDirection.PLAY_TO_SERVER)
+                    .decoder(OpenExampleMenuKeyPressedC2SPacket::decode)
+                    .encoder(OpenExampleMenuKeyPressedC2SPacket::encode)
+                    .consumerMainThread(OpenExampleMenuKeyPressedC2SPacket::handle)
                     .add();
         });
         modEventBus.addListener((FMLClientSetupEvent event) -> {
-            MenuScreens.register(ModExamples.TEST_MENU.get(), TestScreen::new);
+            MenuScreens.register(ModExamples.EXAMPLE_MENU.get(), ExampleScreen::new);
         });
         MinecraftForge.EVENT_BUS.addListener((InputEvent.Key event) -> {
             Minecraft minecraft = Minecraft.getInstance();
-            if (minecraft.level != null && event.getKey() == ModExamples.OPEN_TEST_MENU.getKey().getValue()) {
-                CHANNEL.send(new OpenMenuKeyPressedC2SPacket(), PacketDistributor.SERVER.noArg());
+            if (minecraft.level != null && event.getKey() == ModExamples.OPEN_EXAMPLE_MENU.getKey().getValue()) {
+                CHANNEL.send(new OpenExampleMenuKeyPressedC2SPacket(), PacketDistributor.SERVER.noArg());
             }
         });
     }

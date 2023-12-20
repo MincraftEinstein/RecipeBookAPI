@@ -1,5 +1,5 @@
 {
-  "type": "recipebook_api:test_recipe_serializer",
+  "type": "recipebook_api:example_recipe_serializer",
   "ingredients": [
     {
       "item": "minecraft:diamond"

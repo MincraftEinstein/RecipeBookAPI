@@ -1,6 +1,6 @@
 {
-  "type": "recipebook_api:test_recipe_serializer",
-  "category": "test_category4",
+  "type": "recipebook_api:example_recipe_serializer",
+  "category": "example_category4",
   "ingredients": [
     {
       "item": "minecraft:gold_ingot"

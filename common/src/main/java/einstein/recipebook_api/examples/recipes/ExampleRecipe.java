@@ -2,7 +2,7 @@ package einstein.recipebook_api.examples.recipes;
 
 import einstein.recipebook_api.api.recipe.CategorizedRecipe;
 import einstein.recipebook_api.examples.ModExamples;
-import einstein.recipebook_api.examples.TestRecipeCategories;
+import einstein.recipebook_api.examples.ExampleRecipeCategories;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.world.Container;
@@ -13,14 +13,14 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
-public class TestRecipe implements Recipe<Container>, CategorizedRecipe<TestRecipeCategories> {
+public class ExampleRecipe implements Recipe<Container>, CategorizedRecipe<ExampleRecipeCategories> {
 
     protected final NonNullList<Ingredient> ingredients;
     protected final ItemStack result;
-    protected final TestRecipeCategories categories;
+    protected final ExampleRecipeCategories categories;
     protected final String group;
 
-    public TestRecipe(NonNullList<Ingredient> ingredients, ItemStack result, TestRecipeCategories categories, String group) {
+    public ExampleRecipe(NonNullList<Ingredient> ingredients, ItemStack result, ExampleRecipeCategories categories, String group) {
         this.ingredients = ingredients;
         this.result = result;
         this.categories = categories;
@@ -59,20 +59,20 @@ public class TestRecipe implements Recipe<Container>, CategorizedRecipe<TestReci
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return ModExamples.TEST_RECIPE_SERIALIZER.get();
+        return ModExamples.EXAMPLE_RECIPE_SERIALIZER.get();
     }
 
     @Override
     public RecipeType<?> getType() {
-        return ModExamples.TEST_RECIPE_TYPE.get();
+        return ModExamples.EXAMPLE_RECIPE_TYPE.get();
     }
 
-    public TestRecipeCategories getCategory() {
+    public ExampleRecipeCategories getCategory() {
         return categories;
     }
 
     @Override
-    public TestRecipeCategories getRecipeBookCategory() {
+    public ExampleRecipeCategories getRecipeBookCategory() {
         return categories;
     }
 }

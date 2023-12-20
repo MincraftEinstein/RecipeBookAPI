@@ -11,7 +11,7 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import java.util.Iterator;
 import java.util.List;
 
-public class TestRecipeBookComponent extends RecipeBookComponent {
+public class ExampleRecipeBookComponent extends RecipeBookComponent {
 
     @Override
     public void setupGhostRecipe(RecipeHolder<?> holder, List<Slot> slots) {

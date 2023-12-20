@@ -1,10 +1,10 @@
 {
-  "type": "recipebook_api:test_recipe_serializer",
-  "category": "test_category5",
+  "type": "recipebook_api:example_recipe_serializer",
+  "category": "example_category5",
   "group": "iron_blocks",
   "ingredients": [
     {
-      "item": "minecraft:iron_ingot"
+      "item": "minecraft:iron_block"
     },
     {
       "item": "minecraft:dirt"

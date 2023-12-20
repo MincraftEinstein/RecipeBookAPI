@@ -1,6 +1,6 @@
 {
-  "type": "recipebook_api:test_recipe_serializer",
-  "category": "test_category3",
+  "type": "recipebook_api:example_recipe_serializer",
+  "category": "example_category3",
   "ingredients": [
     {
       "item": "minecraft:redstone"

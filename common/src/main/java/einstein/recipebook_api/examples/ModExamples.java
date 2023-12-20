@@ -4,10 +4,10 @@ import com.mojang.blaze3d.platform.InputConstants;
 import einstein.recipebook_api.RecipeBookAPI;
 import einstein.recipebook_api.api.RecipeBookRegistry;
 import einstein.recipebook_api.api.recipe.RecipeBookTypeHolder;
-import einstein.recipebook_api.examples.menus.TestMenu;
-import einstein.recipebook_api.examples.recipes.TestRecipe;
-import einstein.recipebook_api.examples.recipes.TestRecipeSerializer;
-import einstein.recipebook_api.examples.screens.TestRecipeContextOption;
+import einstein.recipebook_api.examples.menus.ExampleMenu;
+import einstein.recipebook_api.examples.recipes.ExampleRecipe;
+import einstein.recipebook_api.examples.recipes.ExampleRecipeSerializer;
+import einstein.recipebook_api.examples.screens.ExampleRecipeContextOption;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -24,22 +24,22 @@ public class ModExamples {
 
     public static final ResourceLocation EMPTY = RecipeBookAPI.loc("empty");
 
-    public static final Supplier<RecipeSerializer<TestRecipe>> TEST_RECIPE_SERIALIZER = REGISTRY.register("test_recipe_serializer", BuiltInRegistries.RECIPE_SERIALIZER, TestRecipeSerializer::new);
-    public static final Supplier<RecipeType<TestRecipe>> TEST_RECIPE_TYPE = REGISTRY.register("test_recipe_type", BuiltInRegistries.RECIPE_TYPE, () -> new RecipeType<>() {
+    public static final Supplier<RecipeSerializer<ExampleRecipe>> EXAMPLE_RECIPE_SERIALIZER = REGISTRY.register("example_recipe_serializer", BuiltInRegistries.RECIPE_SERIALIZER, ExampleRecipeSerializer::new);
+    public static final Supplier<RecipeType<ExampleRecipe>> EXAMPLE_RECIPE_TYPE = REGISTRY.register("example_recipe_type", BuiltInRegistries.RECIPE_TYPE, () -> new RecipeType<>() {
 
         @Override
         public String toString() {
-            return "test_recipe_type";
+            return "example_recipe_type";
         }
     });
-    public static final Supplier<MenuType<TestMenu>> TEST_MENU = REGISTRY.register("test_menu", BuiltInRegistries.MENU, () -> REGISTRY.createMenuType((id, inventory, buf) -> new TestMenu(id, inventory)));
+    public static final Supplier<MenuType<ExampleMenu>> EXAMPLE_MENU = REGISTRY.register("example_menu", BuiltInRegistries.MENU, () -> REGISTRY.createMenuType((id, inventory, buf) -> new ExampleMenu(id, inventory)));
 
-    public static final RecipeBookRegistry TEST_REGISTRY = RecipeBookRegistry.create(RecipeBookAPI.MOD_ID);
-    public static final RecipeBookTypeHolder<?, ?> TEST_TYPE = TEST_REGISTRY.registerType("test_type", TEST_RECIPE_TYPE, TestRecipeCategories.values());
+    public static final RecipeBookRegistry EXAMPLE_REGISTRY = RecipeBookRegistry.create(RecipeBookAPI.MOD_ID);
+    public static final RecipeBookTypeHolder<?, ?> EXAMPLE_TYPE = EXAMPLE_REGISTRY.registerType("example_type", EXAMPLE_RECIPE_TYPE, ExampleRecipeCategories.values());
 
-    public static final KeyMapping OPEN_TEST_MENU = REGISTRY.registerKeyMapping(() -> new KeyMapping("open_test_menu", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_C, KeyMapping.CATEGORY_INVENTORY));
+    public static final KeyMapping OPEN_EXAMPLE_MENU = REGISTRY.registerKeyMapping(() -> new KeyMapping("open_example_menu", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_C, KeyMapping.CATEGORY_INVENTORY));
 
     public static void init() {
-        TEST_REGISTRY.registerRecipeContextMenuOption(TEST_RECIPE_TYPE, TestRecipeContextOption::new);
+        EXAMPLE_REGISTRY.registerRecipeContextMenuOption(EXAMPLE_RECIPE_TYPE, ExampleRecipeContextOption::new);
     }
 }

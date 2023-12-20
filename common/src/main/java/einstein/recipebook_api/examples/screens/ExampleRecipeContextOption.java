@@ -10,7 +10,7 @@ import java.util.List;
 
 import static einstein.recipebook_api.examples.ModExamples.EMPTY;
 
-public class TestRecipeContextOption extends RecipeContextMenuOption {
+public class ExampleRecipeContextOption extends RecipeContextMenuOption {
 
     private final List<Pos> positions = new ArrayList<>();
 
