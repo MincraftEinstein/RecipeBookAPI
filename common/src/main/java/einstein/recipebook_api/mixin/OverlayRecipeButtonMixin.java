@@ -43,7 +43,7 @@ public abstract class OverlayRecipeButtonMixin extends AbstractWidget {
 
     @Redirect(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/recipebook/OverlayRecipeComponent$OverlayRecipeButton;calculateIngredientsPositions(Lnet/minecraft/world/item/crafting/RecipeHolder;)V"))
     private void setup(OverlayRecipeComponent.OverlayRecipeButton recipeButton, RecipeHolder<?> recipeHolder) {
-        recipeBookAPI$setView(recipeHolder);
+        recipeBookAPI$setMenuOption(recipeHolder);
         if (recipeBookAPI$menuOption != null) {
             for (RecipeContextMenuOption.Pos pos : recipeBookAPI$menuOption.calculateIngredientsPositions(recipeHolder)) {
                 ingredientPos.add(recipeBookAPI$me.new Pos(pos.x(), pos.y(), pos.ingredient().getItems()));
@@ -54,7 +54,7 @@ public abstract class OverlayRecipeButtonMixin extends AbstractWidget {
     }
 
     @Unique
-    private void recipeBookAPI$setView(RecipeHolder<?> recipeHolder) {
+    private void recipeBookAPI$setMenuOption(RecipeHolder<?> recipeHolder) {
         for (String modId : RecipeBookRegistryImpl.RECIPE_BOOK_REGISTRY.keySet()) {
             RecipeBookRegistryImpl registry = RecipeBookRegistryImpl.RECIPE_BOOK_REGISTRY.get(modId);
             for (Supplier<? extends RecipeType<?>> recipeType : registry.getRecipeContextMenuOptions().keySet()) {
