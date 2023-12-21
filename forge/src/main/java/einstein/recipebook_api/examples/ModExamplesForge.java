@@ -4,6 +4,7 @@ import einstein.recipebook_api.RecipeBookAPI;
 import einstein.recipebook_api.RecipeBookAPIForge;
 import einstein.recipebook_api.examples.networking.OpenExampleMenuKeyPressedC2SPacket;
 import einstein.recipebook_api.examples.screens.ExampleScreen;
+import einstein.recipebook_api.examples.screens.LargeExampleScreen;
 import einstein.recipebook_api.platform.ForgeRegistryHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
@@ -42,11 +43,13 @@ public class ModExamplesForge {
         });
         modEventBus.addListener((FMLClientSetupEvent event) -> {
             MenuScreens.register(ModExamples.EXAMPLE_MENU.get(), ExampleScreen::new);
+            MenuScreens.register(ModExamples.LARGE_EXAMPLE_MENU.get(), LargeExampleScreen::new);
         });
         MinecraftForge.EVENT_BUS.addListener((InputEvent.Key event) -> {
             Minecraft minecraft = Minecraft.getInstance();
-            if (minecraft.level != null && event.getKey() == ModExamples.OPEN_EXAMPLE_MENU.getKey().getValue()) {
-                CHANNEL.send(new OpenExampleMenuKeyPressedC2SPacket(), PacketDistributor.SERVER.noArg());
+            int screen = event.getKey() == ModExamples.OPEN_EXAMPLE_MENU.getKey().getValue() ? 1 : event.getKey() == ModExamples.OPEN_LARGE_EXAMPLE_MENU.getKey().getValue() ? 2 : 0;
+            if (minecraft.level != null && screen > 0) {
+                CHANNEL.send(new OpenExampleMenuKeyPressedC2SPacket(screen), PacketDistributor.SERVER.noArg());
             }
         });
     }

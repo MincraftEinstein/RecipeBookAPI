@@ -5,6 +5,7 @@ import einstein.recipebook_api.RecipeBookAPI;
 import einstein.recipebook_api.api.RecipeBookRegistry;
 import einstein.recipebook_api.api.recipe.RecipeBookTypeHolder;
 import einstein.recipebook_api.examples.menus.ExampleMenu;
+import einstein.recipebook_api.examples.menus.LargeExampleMenu;
 import einstein.recipebook_api.examples.recipes.ExampleRecipe;
 import einstein.recipebook_api.examples.recipes.ExampleRecipeSerializer;
 import einstein.recipebook_api.examples.screens.ExampleRecipeContextOption;
@@ -33,11 +34,13 @@ public class ModExamples {
         }
     });
     public static final Supplier<MenuType<ExampleMenu>> EXAMPLE_MENU = REGISTRY.register("example_menu", BuiltInRegistries.MENU, () -> REGISTRY.createMenuType((id, inventory, buf) -> new ExampleMenu(id, inventory)));
+    public static final Supplier<MenuType<LargeExampleMenu>> LARGE_EXAMPLE_MENU = REGISTRY.register("large_example_menu", BuiltInRegistries.MENU, () -> REGISTRY.createMenuType((id, inventory, buf) -> new LargeExampleMenu(id, inventory)));
 
     public static final RecipeBookRegistry EXAMPLE_REGISTRY = RecipeBookRegistry.create(RecipeBookAPI.MOD_ID);
     public static final RecipeBookTypeHolder<?, ?> EXAMPLE_TYPE = EXAMPLE_REGISTRY.registerType("example_type", EXAMPLE_RECIPE_TYPE, ExampleRecipeCategories.values());
 
     public static final KeyMapping OPEN_EXAMPLE_MENU = REGISTRY.registerKeyMapping(() -> new KeyMapping("open_example_menu", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_C, KeyMapping.CATEGORY_INVENTORY));
+    public static final KeyMapping OPEN_LARGE_EXAMPLE_MENU = REGISTRY.registerKeyMapping(() -> new KeyMapping("open_large_example_menu", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_V, KeyMapping.CATEGORY_INVENTORY));
 
     public static void init() {
         EXAMPLE_REGISTRY.registerRecipeContextMenuOption(EXAMPLE_RECIPE_TYPE, ExampleRecipeContextOption::new);
