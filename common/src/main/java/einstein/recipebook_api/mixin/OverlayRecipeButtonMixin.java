@@ -45,8 +45,7 @@ public abstract class OverlayRecipeButtonMixin extends AbstractWidget {
     private void setup(OverlayRecipeComponent.OverlayRecipeButton recipeButton, RecipeHolder<?> recipeHolder) {
         recipeBookAPI$setView(recipeHolder);
         if (recipeBookAPI$menuOption != null) {
-            recipeBookAPI$menuOption.calculateIngredientsPositions(recipeHolder);
-            for (RecipeContextMenuOption.Pos pos : recipeBookAPI$menuOption.getIngredientPositions()) {
+            for (RecipeContextMenuOption.Pos pos : recipeBookAPI$menuOption.calculateIngredientsPositions(recipeHolder)) {
                 ingredientPos.add(recipeBookAPI$me.new Pos(pos.x(), pos.y(), pos.ingredient().getItems()));
             }
             return;

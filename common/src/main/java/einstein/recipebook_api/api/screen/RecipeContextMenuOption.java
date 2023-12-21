@@ -25,9 +25,7 @@ public abstract class RecipeContextMenuOption {
 
     public abstract WidgetSprites getSprites();
 
-    public abstract void calculateIngredientsPositions(RecipeHolder<?> recipeHolder);
-
-    public abstract List<Pos> getIngredientPositions();
+    public abstract List<Pos> calculateIngredientsPositions(RecipeHolder<?> recipeHolder);
 
     public record Pos(int x, int y, Ingredient ingredient) {
 

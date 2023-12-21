@@ -12,24 +12,19 @@ import static einstein.recipebook_api.examples.ModExamples.EMPTY;
 
 public class ExampleRecipeContextOption extends RecipeContextMenuOption {
 
-    private final List<Pos> positions = new ArrayList<>();
-
     @Override
     public WidgetSprites getSprites() {
         return new WidgetSprites(EMPTY, EMPTY);
     }
 
     @Override
-    public void calculateIngredientsPositions(RecipeHolder<?> recipeHolder) {
+    public List<Pos> calculateIngredientsPositions(RecipeHolder<?> recipeHolder) {
+        List<Pos> positions = new ArrayList<>();
         Ingredient ingredient = recipeHolder.value().getIngredients().get(0);
         Ingredient ingredient1 = recipeHolder.value().getIngredients().get(1);
 
         positions.add(new Pos(10, 5, ingredient));
         positions.add(new Pos(10, 15, ingredient1));
-    }
-
-    @Override
-    public List<Pos> getIngredientPositions() {
         return positions;
     }
 }
