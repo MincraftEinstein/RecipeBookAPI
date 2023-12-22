@@ -3,9 +3,13 @@ package einstein.recipebook_api.api.category;
 import einstein.recipebook_api.api.recipe.RecipeBookTypeHolder;
 import net.minecraft.client.RecipeBookCategories;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Objects;
 
 public class RecipeBookCategoryHolder<T extends Enum<?> & RecipeBookCategoryEnum> {
 
+    @Nullable
     private RecipeBookCategories category;
     private final String name;
     private final boolean isSearch;
@@ -42,11 +46,11 @@ public class RecipeBookCategoryHolder<T extends Enum<?> & RecipeBookCategoryEnum
     }
 
     public RecipeBookCategories getCategory() {
-        return category;
+        return Objects.requireNonNull(category, "Recipe Book Category not present: " + name);
     }
 
     public void setCategory(RecipeBookCategories category) {
-        this.category = category;
+        this.category = Objects.requireNonNull(category, "Failed to assign Recipe Book Category to: " + name);
     }
 
     public T getEnumType() {

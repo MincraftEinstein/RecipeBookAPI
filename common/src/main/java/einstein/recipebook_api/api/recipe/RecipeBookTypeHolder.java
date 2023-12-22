@@ -7,13 +7,16 @@ import net.minecraft.world.inventory.RecipeBookType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeType;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Supplier;
 
 public class RecipeBookTypeHolder<T extends Enum<?> & RecipeBookCategoryEnum, V extends RecipeType<?>> {
 
+    @Nullable
     private RecipeBookType type;
     private final String name;
     private final Supplier<V> recipeType;
@@ -64,10 +67,10 @@ public class RecipeBookTypeHolder<T extends Enum<?> & RecipeBookCategoryEnum, V 
     }
 
     public RecipeBookType getType() {
-        return type;
+        return Objects.requireNonNull(type, "Recipe Book Type not present: " + name);
     }
 
     public void setType(RecipeBookType type) {
-        this.type = type;
+        this.type = Objects.requireNonNull(type, "Failed to assign Recipe Book Type to: " + name);
     }
 }
