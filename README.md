@@ -6,7 +6,9 @@
 [![Discord Invite](https://img.shields.io/badge/Discord-Einstein%27s%20Lab-blue?style=for-the-badge&logo=discord)](https://discord.gg/gSsaFAvrBM)
 
 ### **📘 Description**
-Provides a simple-to-use API to create recipe book support for custom processing/crafting menus
+If you use Fabric or Jared's [MultiLoader-Template](https://github.com/jaredlll08/MultiLoader-Template) (like me),
+then there's not really a way to add recipe book support for custom recipe types.
+This mod solves that issue by adding a simple system that works with vanilla and allows for some customization
 
 [Fabric API](https://modrinth.com/mod/fabric-api) required for Fabric version
 
@@ -32,6 +34,17 @@ You may not
 </details>
 
 [<img alt="Ko-fi Badge" height="15%" width="15%" src="https://storage.ko-fi.com/cdn/brandasset/kofi_bg_tag_dark.png" alt="Ko-fi badge">](https://ko-fi.com/mincrafteinstein)
+
+---
+
+### **🔧 Compatibility**
+Below is a list of other recipe book related mods with *tested* compatibility.
+Other recipe book related mods may still work but have not been tested
+
+- [BetterRecipeBook](https://curseforge.com/minecraft/mc-mods/brb) works perfectly except one feature doesn't render (Fabric, Forge)
+- [HiddenRecipeBook](https://curseforge.com/minecraft/mc-mods/hidden-recipe-book) works perfectly except it doesn't disable custom books (Fabric, Forge)
+- [NoRecipeBook](https://modrinth.com/mod/norecipebook-fabric) works perfectly (Fabric)
+- [LetsDoAPI](https://curseforge.com/minecraft/mc-mods/do-api) works perfectly (Fabric, Forge)
 
 ---
 
