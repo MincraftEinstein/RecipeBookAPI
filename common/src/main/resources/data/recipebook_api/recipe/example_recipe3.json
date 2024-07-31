@@ -1,0 +1,15 @@
+{
+  "type": "recipebook_api:example_recipe_serializer",
+  "category": "example_category3",
+  "ingredients": [
+    {
+      "item": "minecraft:redstone"
+    },
+    {
+      "item": "minecraft:dirt"
+    }
+  ],
+  "result": {
+    "id": "minecraft:redstone_block"
+  }
+}

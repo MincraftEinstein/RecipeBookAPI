@@ -1,0 +1,14 @@
+{
+  "type": "recipebook_api:example_recipe_serializer",
+  "ingredients": [
+    {
+      "item": "minecraft:diamond"
+    },
+    {
+      "item": "minecraft:dirt"
+    }
+  ],
+  "result": {
+    "id": "minecraft:diamond_block"
+  }
+}

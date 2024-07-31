@@ -20,6 +20,6 @@ public interface RegistryHelper {
     @FunctionalInterface
     interface MenuTypeSupplier<T> {
 
-        T create(int id, Inventory inventory, FriendlyByteBuf buf);
+        T create(int id, Inventory inventory);
     }
 }

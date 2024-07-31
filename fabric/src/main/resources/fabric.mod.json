@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "id": "recipebook_api",
   "version": "${version}",
-  "name": "RecipeBook API",
-  "description": "Provides a simple to use API to create recipe book support for custom processing/crafting menus",
+  "name": "${mod_name}",
+  "description": "${description}",
   "authors": [
     "MincraftEinstein"
   ],
@@ -24,18 +24,14 @@
     ]
   },
   "mixins": [
-    "recipebook_api.mixins.json",
-    "recipebook_api.fabric.mixins.json"
+    "recipebook_api.mixins.json"
   ],
   "accessWidener": "recipebook_api.accesswidener",
   "depends": {
-    "fabricloader": ">=0.14",
-    "fabric": ">=0.89.0",
-    "minecraft": "1.20.x",
-    "java": ">=17"
-  },
-  "suggests": {
-    "another-mod": "*"
+    "fabricloader": ">=${fabric_version}",
+    "fabric-api": ">=${fabric_api_version}",
+    "minecraft": ">=${minecraft_version}",
+    "java": ">=${java_version}"
   },
   "custom": {
     "modmenu": {

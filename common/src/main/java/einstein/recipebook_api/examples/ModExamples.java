@@ -33,8 +33,8 @@ public class ModExamples {
             return "example_recipe_type";
         }
     });
-    public static final Supplier<MenuType<ExampleMenu>> EXAMPLE_MENU = REGISTRY.register("example_menu", BuiltInRegistries.MENU, () -> REGISTRY.createMenuType((id, inventory, buf) -> new ExampleMenu(id, inventory)));
-    public static final Supplier<MenuType<LargeExampleMenu>> LARGE_EXAMPLE_MENU = REGISTRY.register("large_example_menu", BuiltInRegistries.MENU, () -> REGISTRY.createMenuType((id, inventory, buf) -> new LargeExampleMenu(id, inventory)));
+    public static final Supplier<MenuType<ExampleMenu>> EXAMPLE_MENU = REGISTRY.register("example_menu", BuiltInRegistries.MENU, () -> REGISTRY.createMenuType(ExampleMenu::new));
+    public static final Supplier<MenuType<LargeExampleMenu>> LARGE_EXAMPLE_MENU = REGISTRY.register("large_example_menu", BuiltInRegistries.MENU, () -> REGISTRY.createMenuType(LargeExampleMenu::new));
 
     public static final RecipeBookRegistry EXAMPLE_REGISTRY = RecipeBookRegistry.create(RecipeBookAPI.MOD_ID);
     public static final RecipeBookTypeHolder<?, ?> EXAMPLE_TYPE = EXAMPLE_REGISTRY.registerType("example_type", EXAMPLE_RECIPE_TYPE, ExampleRecipeCategories.values());

@@ -13,7 +13,7 @@ import net.minecraft.world.inventory.RecipeBookMenu;
 import net.minecraft.world.inventory.Slot;
 import org.joml.Vector2i;
 
-public abstract class SimpleRecipeBookScreen<T extends RecipeBookMenu<?>, V extends RecipeBookComponent> extends AbstractContainerScreen<T> implements RecipeUpdateListener {
+public abstract class SimpleRecipeBookScreen<T extends RecipeBookMenu<?, ?>, V extends RecipeBookComponent> extends AbstractContainerScreen<T> implements RecipeUpdateListener {
 
     protected boolean widthTooNarrow;
     private final V recipeBookComponent;

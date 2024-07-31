@@ -3,9 +3,9 @@ package einstein.recipebook_api.platform;
 import einstein.recipebook_api.RecipeBookAPI;
 import einstein.recipebook_api.platform.services.RegistryHelper;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.core.Registry;
+import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 
@@ -21,7 +21,7 @@ public class FabricRegistryHelper implements RegistryHelper {
 
     @Override
     public <T extends AbstractContainerMenu> MenuType<T> createMenuType(MenuTypeSupplier<T> supplier) {
-        return new ExtendedScreenHandlerType<>(supplier::create);
+        return new MenuType<>(supplier::create, FeatureFlags.VANILLA_SET);
     }
 
     @Override

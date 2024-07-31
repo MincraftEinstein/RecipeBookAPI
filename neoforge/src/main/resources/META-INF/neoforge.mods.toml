@@ -1,0 +1,34 @@
+modLoader = "javafml"
+loaderVersion = "${neoforge_loader_version_range}"
+license = "All rights reserved"
+issueTrackerURL="https://github.com/MincraftEinstein/RecipeBookAPI/issues"
+
+[[mods]]
+    modId = "recipebook_api"
+    version = "${version}"
+    displayName = "${mod_name}"
+    #updateJSONURL="https://change.me.example.invalid/updates.json"
+    displayURL="https://curseforge.com/minecraft/mc-mods/recipebook-api"
+    logoFile = "pack.png"
+    authors = "${mod_author}"
+    description = "${description}"
+
+[[mixins]]
+    config = "recipebook_api.mixins.json"
+
+[[accessTransformers]]
+    file = "META-INF/accesstransformer.cfg"
+
+[[dependencies.recipebook_api]]
+    modId = "neoforge"
+    type = "required"
+    versionRange = "[${neoforge_version},)"
+    ordering = "NONE"
+    side = "BOTH"
+
+[[dependencies.recipebook_api]]
+    modId = "minecraft"
+    type = "required"
+    versionRange = "${minecraft_version_range}"
+    ordering = "NONE"
+    side = "BOTH"

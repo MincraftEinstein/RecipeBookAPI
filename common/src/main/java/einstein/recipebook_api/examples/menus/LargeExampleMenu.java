@@ -2,6 +2,7 @@ package einstein.recipebook_api.examples.menus;
 
 import einstein.recipebook_api.examples.ModExamples;
 import einstein.recipebook_api.examples.recipes.ExampleRecipe;
+import einstein.recipebook_api.examples.recipes.ExampleRecipeInput;
 import net.minecraft.network.protocol.game.ClientboundContainerSetSlotPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
@@ -17,7 +18,7 @@ import net.minecraft.world.level.Level;
 
 import java.util.Optional;
 
-public class LargeExampleMenu extends RecipeBookMenu<Container> {
+public class LargeExampleMenu extends RecipeBookMenu<ExampleRecipeInput, ExampleRecipe> {
 
     private final Player player;
     private final Level level;
@@ -70,12 +71,12 @@ public class LargeExampleMenu extends RecipeBookMenu<Container> {
         if (!level.isClientSide()) {
             ServerPlayer serverPlayer = (ServerPlayer) player;
             ItemStack resultStack = ItemStack.EMPTY;
-            Optional<RecipeHolder<ExampleRecipe>> optional = level.getServer().getRecipeManager().getRecipeFor(ModExamples.EXAMPLE_RECIPE_TYPE.get(), container, level);
+            Optional<RecipeHolder<ExampleRecipe>> optional = level.getServer().getRecipeManager().getRecipeFor(ModExamples.EXAMPLE_RECIPE_TYPE.get(), new ExampleRecipeInput(container), level);
             if (optional.isPresent()) {
                 RecipeHolder<ExampleRecipe> holder = optional.get();
                 ExampleRecipe recipe = holder.value();
                 if (resultContainer.setRecipeUsed(level, serverPlayer, holder)) {
-                    ItemStack resultStack2 = recipe.assemble(container, level.registryAccess());
+                    ItemStack resultStack2 = recipe.assemble(new ExampleRecipeInput(container), level.registryAccess());
                     if (resultStack2.isItemEnabled(level.enabledFeatures())) {
                         resultStack = resultStack2;
                     }
@@ -103,8 +104,8 @@ public class LargeExampleMenu extends RecipeBookMenu<Container> {
     }
 
     @Override
-    public boolean recipeMatches(RecipeHolder<? extends Recipe<Container>> holder) {
-        return holder.value().matches(container, level);
+    public boolean recipeMatches(RecipeHolder<ExampleRecipe> holder) {
+        return holder.value().matches(new ExampleRecipeInput(container), level);
     }
 
     @Override

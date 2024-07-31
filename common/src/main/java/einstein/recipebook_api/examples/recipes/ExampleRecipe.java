@@ -3,6 +3,7 @@ package einstein.recipebook_api.examples.recipes;
 import einstein.recipebook_api.api.recipe.CategorizedRecipe;
 import einstein.recipebook_api.examples.ModExamples;
 import einstein.recipebook_api.examples.ExampleRecipeCategories;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.world.Container;
@@ -13,7 +14,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
-public class ExampleRecipe implements Recipe<Container>, CategorizedRecipe<ExampleRecipeCategories> {
+public class ExampleRecipe implements Recipe<ExampleRecipeInput>, CategorizedRecipe<ExampleRecipeCategories> {
 
     protected final NonNullList<Ingredient> ingredients;
     protected final ItemStack result;
@@ -28,12 +29,12 @@ public class ExampleRecipe implements Recipe<Container>, CategorizedRecipe<Examp
     }
 
     @Override
-    public boolean matches(Container container, Level level) {
-        return ingredients.get(0).test(container.getItem(0)) && ingredients.get(1).test(container.getItem(1));
+    public boolean matches(ExampleRecipeInput input, Level level) {
+        return ingredients.get(0).test(input.getItem(0)) && ingredients.get(1).test(input.getItem(1));
     }
 
     @Override
-    public ItemStack assemble(Container container, RegistryAccess registryAccess) {
+    public ItemStack assemble(ExampleRecipeInput input, HolderLookup.Provider provider) {
         return result.copy();
     }
 
@@ -53,7 +54,7 @@ public class ExampleRecipe implements Recipe<Container>, CategorizedRecipe<Examp
     }
 
     @Override
-    public ItemStack getResultItem(RegistryAccess registryAccess) {
+    public ItemStack getResultItem(HolderLookup.Provider provider) {
         return result;
     }
 
