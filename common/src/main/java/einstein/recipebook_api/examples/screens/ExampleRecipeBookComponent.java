@@ -1,5 +1,6 @@
 package einstein.recipebook_api.examples.screens;
 
+import einstein.recipebook_api.api.screen.FilterButtonSpriteHelper;
 import net.minecraft.client.gui.screens.recipebook.RecipeBookComponent;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.inventory.Slot;
@@ -34,5 +35,10 @@ public class ExampleRecipeBookComponent extends RecipeBookComponent {
                 ghostRecipe.addIngredient(ingredient, slot.x, slot.y);
             }
         }
+    }
+
+    @Override
+    protected void initFilterButtonTextures() {
+        filterButton.initTextureValues(FilterButtonSpriteHelper.FURNACE_FILTER_SPRITES);
     }
 }
