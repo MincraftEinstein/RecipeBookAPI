@@ -36,7 +36,10 @@
   "custom": {
     "modmenu": {
       "links": {
-        "modmenu.discord": "https://discord.gg/gSsaFAvrBM"
+        "modmenu.modrinth": "https://modrinth.com/mod/subtle-effects",
+        "modmenu.curseforge": "https://curseforge.com/minecraft/mc-mods/subtle-effects",
+        "modmenu.discord": "https://discord.gg/gSsaFAvrBM",
+        "modmenu.kofi": "https://ko-fi.com/mincrafteinstein"
       },
       "badges": [
         "library"
