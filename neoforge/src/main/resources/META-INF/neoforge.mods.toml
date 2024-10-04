@@ -5,7 +5,7 @@ issueTrackerURL="https://github.com/MincraftEinstein/RecipeBookAPI/issues"
 
 [[mods]]
     modId = "recipebook_api"
-    version = "${version}"
+    version = "${mod_version}"
     displayName = "${mod_name}"
     #updateJSONURL="https://change.me.example.invalid/updates.json"
     displayURL="https://curseforge.com/minecraft/mc-mods/recipebook-api"

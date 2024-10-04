@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "recipebook_api",
-  "version": "${version}",
+  "version": "${mod_version}",
   "name": "${mod_name}",
   "description": "${description}",
   "authors": [
